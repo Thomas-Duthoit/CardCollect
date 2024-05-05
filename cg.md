@@ -3,15 +3,59 @@
 ## Première version:
 Utilisation d'une architecture MVC pour différencier les différentes couches
 ### Liste des vues:
+- Accueil
 - Connexion
 - Création de compte
-- Validation du compte (si envoi de mail possible)
+- Vérification du compte (si envoi de mail possible)
 - Vue d'administration des utilisateurs (?)
 - Vue de collection de cartes
 - Vue d'achat de pack de cartes
+- Vue d'ouverture de pack
 - Vue de publication de cartes
 - Vue de modération pour la validation de publication de cartes
 - Vue d'obtention de coins pour pouvoir acheter des packs (idée évoquée en cours: énigmes)
 - Vue de marketplace pour acheter/vendre/échanger des cartes
+### Fonctionnalités:
+- #### Accueil:
+  - Page d'accueil classique, expliquant brièvement le principe du site
+- #### Connexion:
+  - Form de connexion dans le style de ce qui a été fait en TP, utilisation des cookies pour stocker les données de session
+  - Ajouter un bouton de déconnexion accessible sur les pages si on est connecté (sur le footer par exemple)
+- #### Création de compte:
+  - Form de création de compte
+  - Envoi d'un mail de vérification avec un code et un lien vers la page de vérification
+  - Les comptes créés ne sont pas actifs tant qu'ils ne sont pas vérifiés
+  - Création d'une association entre compte et code de vérification dans la BDD pour un traitement plus facile
+- #### Vérification du compte:
+  - Compte fournis dans la querystring (lien vers la page personnalisé envoyé par mail)
+  - Form pour rentrer le code envoyé par mail pour vérifier son compte
+  - Si la page est appelée mais que le compte est déjà validé/la querystring contient des informations erronées -> redirection vers l'accueil
+- #### Vue d'administration des utilisateurs:
+  - Page accessible par les administrateurs
+  - Possibilité de modifier les données associés aux comptes de la BDD comme un changement du nombree de coins ou alors des supressions de compte
+- #### Vue de collection de cartes:
+  - Bibliothèque des cartes, avec un filtre pour afficher toutes les cartes/celles que l'on possède uniquement
+  - Les cartes non possédées devront être marquées d'un filigrane de protection / dans une résolution inférieure
+  - Les cartes possédées pourront être agrandies, téléchargées et imprimées
+- #### Vue d'achat de pack de cartes
+  - Magasin interne du site, où l'on peut acheter différents pack de cartes en échange d'une monnaie virtuelle (coins)
+  - Différents pack seront proposés, avec plus ou moins de cartes
+- #### Vue d'ouverture de pack:
+  - Liste les packs qui nous appartiennent
+  - Permet d'ouvrir nos packs de cartes comme on en ouvrirait un dans la vraie vie, avec un tirage des cartes une par une
+- #### Vue de publication de cartes
+  - Une vue permettant de publier nos propres cartes pour que les autres utilisateurs puissent les collectionner
+  - Il faudrait une vérification de la taille de l'image au niveau du controleur
+  - Les cartes publiés passeront d'abord par un stade de validation par les modérateurs
+- #### Vue de modération pour la validation de publication de cartes:
+  - Page accessible par les modérateurs/administrateurs
+  - Affichage de la liste des cartes en attentes de validation
+  - Les cartes peuvent être acceptées ou bien rejetées par les modérateurs/administrateurs
+- #### Vue d'obtention des coins:
+  - Liste d'énigme, avec un champ texte pour entrer la réponse, si la réponse est correcte, l'énigme devient inactive pour l'utilisateur et son compte se voit créditer du montant affiché par l'énigme en coins
+- #### Vue de marketplace:
+  - Liste toutes les offres
+  - Possiblité de choisir une offre pour échanger/acheter des cartes
+  - Possibilité de créer des offres pour vendre/échanger des cartes
 
 ---
