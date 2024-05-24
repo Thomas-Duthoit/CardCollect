@@ -1,11 +1,22 @@
 :root {
-    --crimson: #e3183f  ;
+    --crimson: #e3183f;
     --white: #ffffff;
     --dark: #2b2e42;
+
+    --r1-bg: #8d9aad;
+    --r2-bg: #00bf63;
+    --r3-bg: #8c52ff;
+    --r4-bg: linear-gradient(to right, #ffde59, #ff914d);
+
 }
 
 * {
     font-family: sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
 }
 
 /*    .crimson_button    */
@@ -36,7 +47,7 @@
 }
 
 .card img{
-    margin: 10px;
+    margin: 10px 10px 0 10px;
     width: calc(100% - 20px);
     border-radius: 15px;
 }
@@ -44,4 +55,23 @@
 .card p{
     color: var(--white);
     border-top: 1px solid var(--white);
+    margin-top: 0px;
+    height: 100px;
+    vertical-align: middle;
+    line-height: 100px;
+}
+
+.r1 {background: var(--r1-bg);}
+.r2 {background: var(--r2-bg);}
+.r3 {background: var(--r3-bg);}
+.r4{background: var(--r4-bg);}
+
+
+/*    #site_header    */
+#site_header{
+    background-color: var(--dark);
+    display: inline-block;
+    height: 50px;
+    padding-top: 28px;
+    width: 100vw;
 }
