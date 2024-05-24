@@ -16,7 +16,7 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 <!-- **** H E A D **** -->
 <head>	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>CardCollect ...</title>
+	<title>CardCollect</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 
 </head>
@@ -28,24 +28,16 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 
 
 <div id="site_header">
-
-<a href="FAIRE LE LIEN"> CardCollect <a>
-
-<a class="crimson_button" href="index.php?view=accueil">Accueil</a>
+	<a id="site_logo" href="index.php?view=accueil">CardCollect</a>
 
 <?php
 //Si l'utilisateur n'est pas connecte, on affiche un lien de connexion 
-
-if (!valider("connecte", "SESSION")) {
-  echo "<a href=\"index.php?view=login\">Connexion</a>\n";
-}
-
-if (valider("connecte", "SESSION")) {
-  echo "<a href=\"index.php?view=conversations\">Conversations</a>\n";
-}
-
+echo "<div id=\"navbar_buttons\">";
+	if (!valider("connected", "SESSION")) {
+		echo "<a class=\"crimson_button\" href=\"index.php?view=login\">Connexion</a>\n";
+	}
+echo "</div>";
 ?>
-
 
 </div>
 

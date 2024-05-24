@@ -14,7 +14,7 @@ if ($checked = valider("remember", "COOKIE")) $checked = "checked";
 
 ?>
 
-<div id="corps">
+<div class="radial_bg">
 
 <h1>Connexion</h1>
 
