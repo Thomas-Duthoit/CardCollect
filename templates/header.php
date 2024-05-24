@@ -35,7 +35,9 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 echo "<div id=\"navbar_buttons\">";
 	if (!valider("connected", "SESSION")) {
 		echo "<a class=\"crimson_button\" href=\"index.php?view=login\">Connexion</a>\n";
+		echo "<a class=\"crimson_button\" href=\"index.php?view=register\">Inscription</a>\n";
 	}
+
 echo "</div>";
 ?>
 

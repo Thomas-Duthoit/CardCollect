@@ -68,12 +68,12 @@ body {
 .r3 {background: var(--r3-bg);}
 .r4{background: var(--r4-bg);}
 
-
+/* ----------- ! HEADER ! ----------- */
 /*    #site_header    */
 #site_header{
     background-color: var(--dark);
     display: inline-block;
-    /*height: 60px;*/
+    height: 70px;
     width: 100vw;
 }
 
@@ -83,17 +83,50 @@ body {
     text-decoration: none;
     font-weight: bold;
     font-size: 40px;
-    /*position: absolute;
-    left: 5px;*/
-    padding: 20px 0 20px 0;
+    position: absolute;
+    left: 5px; top: 10px;
 }
 
 /*    #navbar_buttons   */
 #navbar_buttons{
     display: inline-block;
     position: absolute;
-    right: 5px; top: 30px;
+    right: 10px; top: 25px;
 }
+/*    #navbar_buttons>a  */
+#navbar_buttons>a{
+    margin-left: 10px;
+}
+
+/* ----------- ! FOOTER ! ----------- */
+#site_footer{
+    background-color: var(--dark);
+    display: inline-block;
+    position: absolute;
+	bottom: 0; right: 0; left: 0;
+    height: 50px;
+    margin-top:10px;
+    color: var(--white);
+}
+
+#site_logout{
+    color: var(--crimson);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 30px;
+    position: absolute;
+    right: 5px; bottom: 5px;
+}
+
+#site_footer>div{
+    position: absolute;
+    top:15px; left: 5px;
+}
+
+
+
+
+
 
 /*    .radial_bg    */
 .radial_bg {
