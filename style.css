@@ -1,3 +1,47 @@
+:root {
+    --crimson: #e3183f  ;
+    --white: white;
+    --dark: #2b2e42;
+}
+
+* {
+    font-family: sans-serif;
+}
+
+/*    .crimson_button    */
 .crimson_button {
+    background-color: var(--crimson);
+    color: var(--white);
+    text-decoration: none;
+    padding: 20px;
+    border-radius: 15px;
+
+    transition-duration: .3s;
+}
+.crimson_button:hover {
+    background-color: var(--white);
+    color: var(--dark);
+    border: 1px solid var(--dark);
+    padding: 19px;
+    transition-duration: .3s;
+}
+
+/*    .card    */
+.card {
+    width: 300px;
+    height: 400px;
+    border-radius: 15px;
+    text-align: center;
+    background-color: var(--dark);
+}
+
+.card img{
+    margin: 10px;
+    width: calc(100% - 20px);
+    border-radius: 15px;
+}
+
+.card p{
+    color: var(--white);
     
 }
