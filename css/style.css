@@ -1,7 +1,10 @@
 :root {
     --crimson: #e3183f;
     --white: #ffffff;
+    --black: #000000;
     --dark: #2b2e42;
+    --dgray: #8d9aad;
+    --lgray: #d9d9d9;
 
     --r1-bg: #8d9aad;
     --r2-bg: #00bf63;
@@ -78,13 +81,14 @@ body {
 }
 
 /*    #site_logo    */
-#site_logo{
+#site_logo {
     color: var(--crimson);
     text-decoration: none;
     font-weight: bold;
     font-size: 40px;
     position: absolute;
-    left: 5px; top: 10px;
+    left: 10px; 
+    top: 10px;
 }
 
 /*    #navbar_buttons   */
@@ -123,11 +127,6 @@ body {
     top:15px; left: 5px;
 }
 
-
-
-
-
-
 /*    .radial_bg    */
 .radial_bg {
     background: var(--radial-bg);
@@ -137,11 +136,89 @@ body {
     top: 0;
     left: 0;
     z-index: -1;
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /*    #formLogin    */
 #formLogin {
     background-color: var(--dark);
+    width: 40vw;
+    height: 50vh;
+    display: inline-block;
+    color: var(--white);
+    text-align: center;
+    border-radius: 25px;
+    position: relative;
+}
+#formLogin h1 {
+    border-bottom: 2px solid var(--dgray);
+    margin: 0;
+    padding: 20px;
+}
+
+#formLogin input[type=text], #formLogin input[type=password] {
+    background-color: var(--lgray);
+    color: var(--black);
+    width: 30vw;
+    height: 7vh;
+    font-size: x-large;
+    margin: 30px 0 -10px 0;
+    border: none;
+    border-radius: 15px;
+    padding-left: 5px;
+}
+
+#formLogin input[type=checkbox] {
+    margin: 40px 0 0 0;
+}
+
+#formLogin label {
+    font-size: x-large;
+}
+
+#formLogin input[type=submit] {
+    background-color: var(--crimson);
+    padding: 20px;
+    color: var(--white);
+    width: 30vw;
+    border: none;
+    font-size: x-large;
     position: absolute;
+    bottom: 5vh;
+    left: 5vw;
+    border-radius: 20px;
+}
+
+/*    .crimson_cb    */
+/*
+styliser une cb:
+source: http://blog.bruyere-freelance.fr/styliser-checkbox-css-proprement/
+*/
+.crimson_cb {
+    /*Suppressiobn de l'apparence de base*/
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+
+    border-radius: 4px;
+    height: 20px;
+    width: 20px;
+    background: var(--dark);
+    border: 1px solid var(--dgray);
+}
+.crimson_cb:checked {
+    margin:0px;
+    position: relative;
+    &:before {
+        content: '✓';
+        display: block;
+        color: var(--crimson);
+        font-size: 18px;
+        position: absolute;
+        font-weight: bold;
+        top: -3px;
+        left: 3px;
+    }
 }

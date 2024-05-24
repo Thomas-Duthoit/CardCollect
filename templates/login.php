@@ -15,18 +15,14 @@ if ($checked = valider("remember", "COOKIE")) $checked = "checked";
 ?>
 
 <div class="radial_bg">
-
-<h1>Connexion</h1>
-
-<div id="formLogin">
-<form action="controleur.php" method="GET">
-<label for="login"> Login : </label><input type="text" id="login" name="login" value="<?php echo $login;?>" /><br />
-<label for="passe">Passe : </label><input type="password" id="passe" name="passe" value="<?php echo $passe;?>" /><br />
-<label for="remember">Se souvenir de moi </label><input type="checkbox" <?php echo $checked;?> name="remember" id="remember" value="ok"/> <br />
-
-<input type="submit" name="action" value="Connexion" />
-</form>
-</div>
-
-
+	<div id="formLogin">
+		<h1>Connexion</h1>
+		<form action="controleur.php" method="GET">
+			<input type="text" id="login" name="login" value="<?php echo $login;?>" placeholder="Nom d'utilisateur"/><br />
+			<input type="password" id="passe" name="passe" value="<?php echo $passe;?>" placeholder="Mot de passe"/><br />
+			<input type="checkbox" <?php echo $checked;?> name="remember" id="remember" value="ok" class="crimson_cb"/>
+			<label for="remember">Rester connecté</label>
+			<input type="submit" name="action" value="Connexion"/>
+		</form>
+	</div>
 </div>
