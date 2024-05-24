@@ -1,6 +1,6 @@
 :root {
     --crimson: #e3183f  ;
-    --white: white;
+    --white: #ffffff;
     --dark: #2b2e42;
 }
 
@@ -43,5 +43,5 @@
 
 .card p{
     color: var(--white);
-    
+    border-top: 1px solid var(--white);
 }
