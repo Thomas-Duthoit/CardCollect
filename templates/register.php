@@ -17,7 +17,11 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 	<h1>Inscription</h1>
 	<?php
 		mkForm();
-		mkInput("text", "login", "");
+		mkInput("text", "login", "", "placeholder=\"Nom d'utilisateur\"");
+		mkInput("password", "passe", "", "placeholder=\"Mot de passe\"");
+		mkInput("text", "email", "", "placeholder=\"Email\"");
+		mkInput("hidden", "view", "register");
+		mkInput("submit", "action", "Inscription", "style=\"position:relative;top:20px;left:0px\"");
 		endForm();
 	?>
 </div>

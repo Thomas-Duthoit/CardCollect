@@ -5,6 +5,8 @@ session_start();
 	include_once "libs/maLibSQL.pdo.php";
 	include_once "libs/maLibSecurisation.php"; 
 	include_once "libs/modele.php"; 
+	include_once "libs/LibCardCollect.php"; 
+
 
 	$qs = $_GET;
 
@@ -38,7 +40,6 @@ session_start();
 					// et on crée des variables de session si tout est OK
 					// Cf. maLibSecurisation
 					if (verifUser($login,$passe)) {
-					  $qs = array("message" => "Connexion réussie");
 						// tout s'est bien passé, doit-on se souvenir de la personne ? 
 						if (valider("remember")) {
 							setcookie("login",$login , time()+60*60*24*30);
@@ -50,54 +51,43 @@ session_start();
 							setcookie("remember",false, time()-3600);
 						}
 					}
+					else {
+						$qs["message"] = "Nom d'utilisateur ou mot de passe incorrect !";
+					}
 				}
 
 				// On redirigera vers la page index automatiquement
 			break;
 
-			case 'Logout' :
+			case 'Déconnexion' :
 				// traitement métier
 	      $_SESSION["pseudo"] = false;
 	      $_SESSION["idUser"] = $false;
-	      $_SESSION["connecte"] = false;
+	      $_SESSION["connected"] = false;
 	      $_SESSION["heureConnexion"] = false;
-	      $_SESSION["isAdmin"] = false;
-	      $qs = array("view" => "login",
-	                  "message" => "Déconnexion réussie");
-			break;
-      
-      // Conversations
-			case 'Archiver' :
-			  // Remarque : mon erreur en séance était d'écrire :
-			  //   valider("admin", "SESSION")
-			  // au lieu de :
-			  //   valider("isAdmin", "SESSION")
-			  if (($idConversation = valider("idConv", "GET"))
-			      && valider("isAdmin", "SESSION")) {
-			    archiverConversation($idConversation);
-			  }
+	      $_SESSION["permissions"] = false;
 			break;
 
-			case 'Reactiver' :
-			  if (($idConversation = valider("idConv", "GET"))
-			      && valider("isAdmin", "SESSION")) {
-			    reactiverConversation($idConversation);
-			  }
-			break;
-			
-			case 'Supprimer' :
-			  if (($idConversation = valider("idConv", "GET"))
-			      && valider("isAdmin", "SESSION")) {
-			    supprimerConversation($idConversation);
-			  }
-			break;
-
-			case 'Creer conversation' :
-			  if (($theme = valider("theme", "GET"))
-			      && valider("isAdmin", "SESSION")) {
-			    $idConv = creerConversation($theme);
-			    $qs["idConv"] = $idConv;
-			  }
+			case 'Inscription':
+				if(($login = valider("login", "GET")) &&
+				   ($passe = valider("passe", "GET")) &&
+				   ($email = valider("email", "GET"))){
+					if (usernameExists($login) != false) {
+						$qs["message"] = "Le nom d'utilisateur existe déjà !";
+						break;
+					}
+					if (emailExists($email) != false) {
+						$qs["message"] = "Ce mail est déjà utilisé !";
+						break;
+					}
+					createUser($login, $passe, $email);
+					$idUser = getId($login);
+					$code = random_int(0, 2147483647);
+					createVerif($idUser, $code);
+					verificationMail($idUser, $code, $email, $login);
+					$qs["message"] = "Inscription réussie ! Pour activer votre compte, 
+					merci de vérifier votre adresse mail et de cliquer sur le lien !";
+				}
 			break;
       
       // Utilisateurs
@@ -107,17 +97,6 @@ session_start();
 			case 'Interdire' :  
 			break; 
 
-      // Messages
-			case 'Poster' :
-			  if (($contenu = valider("contenu", "GET"))
-			      && ($idConv = valider("idConv", "GET"))
-			      && ($idUser = valider("idUser", "SESSION"))
-			      && ($conv = getConversation($idConv))
-			      && (!empty($conv))
-			      && ($conv[0]["active"])) {
-	        enregistrerMessage($idConv, $idUser, $contenu);
-	      }
-			break;
 
 
 		}

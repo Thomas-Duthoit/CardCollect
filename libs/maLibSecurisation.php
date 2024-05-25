@@ -30,9 +30,9 @@ function verifUser($login,$password)
 	// Le controleur le fait déjà !!
 	$_SESSION["pseudo"] = $login;
 	$_SESSION["idUser"] = $id;
-	$_SESSION["connecte"] = true;
+	$_SESSION["connected"] = true;
 	$_SESSION["heureConnexion"] = date("H:i:s");
-	$_SESSION["isAdmin"] = isAdmin($id);
+	$_SESSION["permissions"] = getPermission($id);
 
 	return true;	
 }
@@ -49,7 +49,7 @@ function verifUser($login,$password)
  */
 function securiser($urlBad,$urlGood=false)
 {
-	if (! valider("connecte","SESSION")) {
+	if (! valider("connected","SESSION")) {
 		rediriger($urlBad);
 		die("");
 	}
