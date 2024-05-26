@@ -17,7 +17,7 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 if (valider("connected", "SESSION")) {
   echo "<a id=\"site_logout\" href=\"controleur.php?action=Déconnexion\">Déconnexion</a>\n";
 }
-tprint($_SESSION);
+
 ?>
 
 </div>

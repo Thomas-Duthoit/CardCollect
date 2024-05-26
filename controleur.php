@@ -186,23 +186,17 @@ session_start();
 			case 'Supprimer question':
 				if((valider("connected","SESSION")) &&
 				(valider("permissions", "SESSION") == 2)  &&
-				($idQuestion = valider("idQuestion", "GET"))){
-					supprimerQuestion($idQuestion);
+				($idQuestion = valider("idQuestion", "GET"))){ 
+					if (is_array($idQuestion)) {
+						foreach($idQuestion as $nextIdQuestion) {
+							supprimerQuestion($nextIdQuestion); 
+						}
+					} else {
+						supprimerQuestion($idQuestion); 
+					}
 				}
 				$qs = "?view=administration";
 			break;
-
-			case 'Modifier question':
-				if((valider("connected","SESSION")) &&
-				(valider("permissions", "SESSION") == 2)  &&
-				($idQuestion = valider("idQuestion", "GET")) &&
-				($name = valider("name", "GET")) &&
-				($content = valider("content", "GET")) &&
-				($answer = valider("answer", "GET")) &&
-				($reward = valider("reward", "GET"))){
-					modifierQuestion($idQuestion, $name, $content, $answer, $reward);
-				}
-				$qs = "?view=administration";
 
 			case 'Créer question':
 				if((valider("connected","SESSION")) &&
@@ -214,6 +208,39 @@ session_start();
 					créerQuestion($name, $content, $answer, $reward);
 				}
 				$qs = "?view=administration";
+			break;
+
+
+			
+			case 'Supprimer booster':
+				if((valider("connected","SESSION")) &&
+				(valider("permissions", "SESSION") == 2)  &&
+				($idBooster = valider("idBooster", "GET"))){ 
+					if (is_array($idBooster)) {
+						foreach($idBooster as $nextIdBooster) {
+							supprimerBooster($nextIdBooster); 
+						}
+					} else {
+						supprimerBooster($idBooster); 
+					}
+				}
+				$qs = "?view=administration";
+			break;
+
+			case 'Créer booster':
+				if((valider("connected","SESSION")) &&
+				(valider("permissions", "SESSION") == 2) &&
+				($name = valider("name", "GET")) &&
+				(($cost = valider("cost", "GET")) != NULL) &&
+				(($nbCommon = valider("nbCommon", "GET")) != NULL) &&
+				(($nbUncommon = valider("nbUncommon", "GET")) != NULL) &&
+				(($nbEpic = valider("nbEpic", "GET")) != NULL) &&
+				(($nbLegendary = valider("nbLegendary", "GET")) != NULL) &&
+				(($nbRandom = valider("nbRandom", "GET")) != NULL)){
+					créerBooster($name, $cost, $nbCommon, $nbUncommon, $nbEpic, $nbLegendary, $nbRandom);
+				}
+				$qs = "?view=administration";
+			break;
 
 		}
 
@@ -226,10 +253,12 @@ session_start();
 	$urlBase = dirname($_SERVER["PHP_SELF"]) . "/index.php";
 	// On redirige vers la page index avec les bons arguments
 
-	header("Location:" . $urlBase . $qs);
+	//header("Location:" . $urlBase . $qs);
+	rediriger($urlBase, $qs);
 
 	// On écrit seulement après cette entête
 	ob_end_flush();
+	
 	
 ?>
 

@@ -67,10 +67,10 @@ function listerUtilisateurs($classe = "both")
 {
 	$etat_blacklist = ";";
 	if ($classe == "bl") {
-	  $etat_blacklist = "WHERE blacklist;";
+	  $etat_blacklist = "WHERE NOT allowed;";
 	}
 	if ($classe == "nbl") {
-	  $etat_blacklist = "WHERE NOT blacklist;";
+	  $etat_blacklist = "WHERE allowed;";
 	}
   $sql = "
     SELECT id, pseudo, allowed
@@ -142,17 +142,6 @@ function supprimerQuestion($idQuestion)
     WHERE id='$idQuestion';");
 }
 
-function modifierQuestion($idQuestion, $name, $content, $answer, $reward)
-{
-	return SQLUpdate("
-    UPDATE Questions
-    SET name = '$name',
-        content = '$content',
-        answer = '$answer', 
-        reward = '$reward'
-    WHERE id = '$idQuestion';");
-}
-
 function créerQuestion($name, $content, $answer, $reward)
 {
 	return SQLInsert("
@@ -160,5 +149,25 @@ function créerQuestion($name, $content, $answer, $reward)
     VALUES('$name', '$content', '$answer', '$reward');");
 }
 
+/* ----------- ! BOOSTERS ! ----------- */
+function listerBoosters(){
+    $sql = "
+    SELECT id, name, cost, nbCommon, nbUncommon, nbEpic, nbLegendary, nbRandom, inShop
+    FROM Boosters;
+  ";
+  return parcoursRs(SQLSelect($sql));
+}
 
+function créerBooster($name, $cost, $nbCommon, $nbUncommon, $nbEpic, $nbLegendary, $nbRandom){
+    return SQLInsert("
+    INSERT INTO Boosters(name, cost, nbCommon, nbUncommon, nbEpic, nbLegendary, nbRandom)
+    VALUES('$name', '$cost', '$nbCommon', '$nbUncommon', '$nbEpic', '$nbLegendary', '$nbRandom');");
+}
+
+function supprimerBooster($idBooster)
+{
+    return SQLDelete("
+    DELETE FROM Boosters
+    WHERE id='$idBooster';");
+}
 ?>

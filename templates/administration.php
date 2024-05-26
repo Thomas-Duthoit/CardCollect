@@ -13,8 +13,11 @@ if (!valider("connected", "SESSION") || (valider("permissions", "SESSION") != 2)
 
 $users = listerUtilisateurs();
 $questions = listerQuestions();
-$idUser = valider("idUser", "GET");
+$boosters = listerBoosters();
 
+$idUser = valider("idUser", "GET");
+$idQuestion = valider("idQuestion", "GET");
+$idBooster = valider("idBooster", "GET");
 ?>
 
 <div id="administration">
@@ -24,7 +27,7 @@ $idUser = valider("idUser", "GET");
     <div>
         <?php
             mkForm();
-                mkSelect("idUser[]", $users,"id", "pseudo",valider("idUser"), "allowed");
+                mkSelect("idUser[]", $users,"id", "pseudo",$idUser, "allowed");
                 mkInput("submit","action","Interdire");
                 mkInput("submit","action","Autoriser");
                 mkInput("submit","action","Promouvoir modérateur");
@@ -46,19 +49,9 @@ $idUser = valider("idUser", "GET");
     <div>
         <?php
             mkForm();
-                mkSelect("idQuestion", $questions,"id", "name",valider("idQuestion"), "content");
+                mkSelect("idQuestion[]", $questions,"id", "name", $idQuestion, "content");
                 mkInput("submit", "action", "Supprimer question");
-                echo "<br />";
-                echo "<br />";
-                mkInput("text", "name", "", "placeholder=\"Nom\"");
-                echo "<br />";
-                mkInput("text", "content", "", "placeholder=\"Intitulé\"");
-                echo "<br />";
-                mkInput("text", "answer", "", "placeholder=\"Réponse\"");
-                echo "<br />";
-                echo "Récompense : ";
-                mkInput("number", "reward");
-                mkInput("submit", "action", "Modifier question");
+           
             endForm();
 
             echo "<h3>Création d'une nouvelle question</h3>";
@@ -77,7 +70,35 @@ $idUser = valider("idUser", "GET");
     </div>
     <hr />
     <h2>Administration boosters</h2>
+    <div>
+        <?php
+            mkForm();
+            mkSelect("idBooster[]", $boosters,"id", "name", $idBooster, "inShop");
+            mkInput("submit", "action", "Supprimer booster");
+            endForm();
+           
+            echo "<h3>Création d'un nouveau booster</h3>";
+            mkForm();
+                mkInput("text", "name", "", "placeholder=\"Nom\"");
+                echo "<br />";
+                echo "Prix : ";
+                mkInput("number", "cost");
+                echo "<br />";
+                echo "nb Commun: ";
+                mkInput("number", "nbCommon", "", "value=\"0\"");
+                echo "nb Non-commun : ";
+                mkInput("number", "nbUncommon", "", "value=\"0\"");
+                echo "nb Epic : ";
+                mkInput("number", "nbEpic", "", "value=\"0\"");
+                echo "nb Légendaire : ";
+                mkInput("number", "nbLegendary", "", "value=\"0\"");
+                echo "nb random : ";
+                mkInput("number", "nbRandom", "", "value=\"0\"");
+                echo "<br />";
+                mkInput("submit", "action", "Créer booster");
+            endForm();
+        ?>
+    </div>
     <hr />
-    <h2>Administration cartes</h2>
 
 </div>
