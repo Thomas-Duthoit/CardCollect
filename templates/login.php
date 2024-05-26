@@ -6,7 +6,11 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 	header("Location:../index.php?view=login");
 	die("");
 }
-
+// Si l'utilisateur est connecté, on le redirige à l'accueil
+if (valider("connected", "SESSION")) {
+	rediriger("index.php?view=accueil&");
+	die("");
+}
 // Chargement eventuel des données en cookies
 $login = valider("login", "COOKIE");
 $passe = valider("passe", "COOKIE"); 

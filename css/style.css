@@ -103,30 +103,31 @@ body {
 }
 
 /* ----------- ! FOOTER ! ----------- */
+/*    #site_footer  */
 #site_footer{
     background-color: var(--dark);
     display: inline-block;
-    position: absolute;
+    width: 100%;
+    position: static;
 	bottom: 0; right: 0; left: 0;
-    height: 50px;
     margin-top:10px;
     color: var(--white);
 }
-
+/*    #site_logout  */
 #site_logout{
     color: var(--crimson);
     text-decoration: none;
     font-weight: bold;
     font-size: 30px;
     position: absolute;
-    right: 5px; bottom: 5px;
+    right: 5px;
 }
-
+/*    #site_logout>div  */
 #site_footer>div{
-    position: absolute;
-    top:15px; left: 5px;
+    left: 5px;
 }
 
+/* ----------- ! LOGIN / REGISTER ! ----------- */
 /*    .radial_bg    */
 .radial_bg {
     background: var(--radial-bg);
@@ -190,6 +191,23 @@ body {
     left: 5vw;
     border-radius: 20px;
 }
+/* ----------- ! ADMINISTRATION ! ----------- */
+#administration>div {
+    margin-left: 15px;
+}
+
+#administration>h1 {
+    margin-left: 5px ;
+}
+
+#administration>h2 {
+    margin-left: 10px ;
+}
+
+#administration>hr {
+    height: 1px;
+    background-color: black;
+}
 
 /*    .crimson_cb    */
 /*
@@ -222,3 +240,4 @@ source: http://blog.bruyere-freelance.fr/styliser-checkbox-css-proprement/
         left: 3px;
     }
 }
+

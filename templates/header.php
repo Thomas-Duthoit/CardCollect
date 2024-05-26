@@ -31,11 +31,19 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 	<a id="site_logo" href="index.php?view=accueil">CardCollect</a>
 
 <?php
-//Si l'utilisateur n'est pas connecte, on affiche un lien de connexion 
+//Si l'utilisateur n'est pas connecte, on affiche un lien de connexion et d'inscription
 echo "<div id=\"navbar_buttons\">";
 	if (!valider("connected", "SESSION")) {
 		echo "<a class=\"crimson_button\" href=\"index.php?view=login\">Connexion</a>\n";
 		echo "<a class=\"crimson_button\" href=\"index.php?view=register\">Inscription</a>\n";
+	}
+
+	if (valider("connected", "SESSION") && (valider("permissions", "SESSION") >= 1)) {
+		echo "<a class=\"crimson_button\" href=\"index.php?view=moderation\">Modération</a>\n";
+	}
+	
+	if (valider("connected", "SESSION") && (valider("permissions", "SESSION") == 2)) {
+		echo "<a class=\"crimson_button\" href=\"index.php?view=administration\">Administration</a>\n";
 	}
 
 echo "</div>";

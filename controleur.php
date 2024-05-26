@@ -91,13 +91,129 @@ session_start();
 			break;
       
       // Utilisateurs
-			case 'Autoriser' : 
+			case 'Autoriser' :
+				if ($idUser = valider("idUser"))  
+				if (valider("connected","SESSION"))
+				if (valider("permissions", "SESSION") == 2) 
+				if (is_array($idUser)) {
+					foreach($idUser as $nextIdUser) {
+						autoriserUtilisateur($nextIdUser); 
+					}
+				} else {
+					autoriserUtilisateur($idUser); 
+				}
+				$qs = "?view=administration"; 
 			break;
 
-			case 'Interdire' :  
+			case 'Interdire' : 
+				if ($idUser = valider("idUser"))  
+				if (valider("connected","SESSION"))
+				if (valider("permissions", "SESSION") == 2) 
+				if (is_array($idUser)) {
+					foreach($idUser as $nextIdUser) {
+						interdireUtilisateur($nextIdUser); 
+					}
+				} else {
+					interdireUtilisateur($idUser); 
+				}
+				$qs = "?view=administration"; 
 			break; 
 
+			case 'Promouvoir modérateur' :
+				if ($idUser = valider("idUser"))  
+				if (valider("connected","SESSION"))
+				if (valider("permissions", "SESSION") == 2) 
+				if (is_array($idUser)) {
+					foreach($idUser as $nextIdUser) {
+						promoModerateur($nextIdUser); 
+					}
+				} else {
+					promoModerateur($idUser); 
+				}
+				$qs = "?view=administration"; 
+			break;
 
+			case 'Promouvoir administrateur' :
+				if ($idUser = valider("idUser"))  
+				if (valider("connected","SESSION"))
+				if (valider("permissions", "SESSION") == 2) 
+				if (is_array($idUser)) {
+					foreach($idUser as $nextIdUser) {
+						promoAdmin($nextIdUser); 
+					}
+				} else {
+					promoAdmin($idUser); 
+				}
+				$qs = "?view=administration"; 
+			break;
+
+			case 'Rétrograder' :
+				if ($idUser = valider("idUser"))  
+				if (valider("connected","SESSION"))
+				if (valider("permissions", "SESSION") == 2) 
+				if (is_array($idUser)) {
+					foreach($idUser as $nextIdUser) {
+						retrograde($nextIdUser); 
+					}
+				} else {
+					retrograde($idUser); 
+				}
+				$qs = "?view=administration"; 
+			break;
+
+			case 'Créer compte':
+				if((valider("connected","SESSION")) &&
+				(valider("permissions", "SESSION") == 2)  &&
+				($login = valider("login", "GET")) &&
+				($passe = valider("passe", "GET")) &&
+				($email = valider("email", "GET"))){
+				 if (usernameExists($login) != false) {
+					 $qs["message"] = "Le nom d'utilisateur existe déjà !";
+					 break;
+				 }
+				 if (emailExists($email) != false) {
+					 $qs["message"] = "Ce mail est déjà utilisé !";
+					 break;
+				 }
+				 createUser($login, $passe, $email);
+				 autoriserUtilisateur(getId($login));
+				}
+				$qs = "?view=administration"; 
+			break;
+
+
+
+			case 'Supprimer question':
+				if((valider("connected","SESSION")) &&
+				(valider("permissions", "SESSION") == 2)  &&
+				($idQuestion = valider("idQuestion", "GET"))){
+					supprimerQuestion($idQuestion);
+				}
+				$qs = "?view=administration";
+			break;
+
+			case 'Modifier question':
+				if((valider("connected","SESSION")) &&
+				(valider("permissions", "SESSION") == 2)  &&
+				($idQuestion = valider("idQuestion", "GET")) &&
+				($name = valider("name", "GET")) &&
+				($content = valider("content", "GET")) &&
+				($answer = valider("answer", "GET")) &&
+				($reward = valider("reward", "GET"))){
+					modifierQuestion($idQuestion, $name, $content, $answer, $reward);
+				}
+				$qs = "?view=administration";
+
+			case 'Créer question':
+				if((valider("connected","SESSION")) &&
+				(valider("permissions", "SESSION") == 2)  &&
+				($name = valider("name", "GET")) &&
+				($content = valider("content", "GET")) &&
+				($answer = valider("answer", "GET")) &&
+				($reward = valider("reward", "GET"))){
+					créerQuestion($name, $content, $answer, $reward);
+				}
+				$qs = "?view=administration";
 
 		}
 
@@ -110,8 +226,7 @@ session_start();
 	$urlBase = dirname($_SERVER["PHP_SELF"]) . "/index.php";
 	// On redirige vers la page index avec les bons arguments
 
-	//header("Location:" . $urlBase . $qs);
-	rediriger($urlBase, $qs);
+	header("Location:" . $urlBase . $qs);
 
 	// On écrit seulement après cette entête
 	ob_end_flush();
