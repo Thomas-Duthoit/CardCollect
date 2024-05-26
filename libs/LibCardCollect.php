@@ -16,7 +16,13 @@ function verificationMail($id, $code, $mail, $login){
         die("A pus");
     }
     return;
+}
 
+function mkCard($rarity, $img, $nom){
+    echo "<div class=\"card r" . $rarity . "\">";
+        echo "<img src=\"" . $img . "\" alt=\"miniature\">";
+        echo "<p>" . $nom . "</p>";
+    echo "</div>";
 }
 
 

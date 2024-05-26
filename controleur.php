@@ -81,12 +81,9 @@ session_start();
 						break;
 					}
 					createUser($login, $passe, $email);
-					$idUser = getId($login);
-					$code = random_int(0, 2147483647);
-					createVerif($idUser, $code);
-					verificationMail($idUser, $code, $email, $login);
-					$qs["message"] = "Inscription réussie ! Pour activer votre compte, 
-					merci de vérifier votre adresse mail et de cliquer sur le lien !";
+					$id = getId($login);
+					autoriserUtilisateur($id);
+					$qs["message"] = "Inscription réussie ! Vous pouvez maintenant vous connecter.";
 				}
 			break;
       
@@ -252,7 +249,6 @@ session_start();
 
 	$urlBase = dirname($_SERVER["PHP_SELF"]) . "/index.php";
 	// On redirige vers la page index avec les bons arguments
-
 	//header("Location:" . $urlBase . $qs);
 	rediriger($urlBase, $qs);
 
