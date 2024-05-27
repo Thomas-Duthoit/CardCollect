@@ -12,3 +12,8 @@ if (!valider("connected", "SESSION")) {
 }
 
 echo "TODO";
+
+$boosters = listerboosters();
+
+tprint($boosters);
+?>
