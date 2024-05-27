@@ -80,17 +80,13 @@ function listerUtilisateurs($classe = "both")
   return parcoursRs(SQLSelect($sql));
 }
 
+// Récupère le nombre de coins de l'utilisateur
 function getCoins($id){
   return SQLGetChamp("
   SELECT coins
   FROM Users
   WHERE id='$id';");
 }
-
-
-
-
-
 
 // Autorise un utilisateur
 function autoriserUtilisateur($idUser)
@@ -138,6 +134,7 @@ function retrograde($idUser)
 }
 
 /* ----------- ! QUESTIONS ! ----------- */
+// Liste les questions
 function listerQuestions()
 {
   $sql = "
@@ -147,6 +144,7 @@ function listerQuestions()
   return parcoursRs(SQLSelect($sql));
 }
 
+// Supprime une question
 function supprimerQuestion($idQuestion)
 {
     return SQLDelete("
@@ -154,6 +152,7 @@ function supprimerQuestion($idQuestion)
     WHERE id='$idQuestion';");
 }
 
+// Créer une question
 function créerQuestion($name, $content, $answer, $reward)
 {
 	return SQLInsert("
@@ -162,7 +161,7 @@ function créerQuestion($name, $content, $answer, $reward)
 }
 
 /* ----------- ! BOOSTERS ! ----------- */
-// Liste les boosters
+// Liste les boosters (Si on ne donne pas un autre int que 0 à inshop, on liste tous les boosters, sinon que ceux dans le shop)
 function listerBoosters($inshop = 0){
     $sql = "
     SELECT id, name, cost, nbCommon, nbUncommon, nbEpic, nbLegendary, nbRandom, inShop
@@ -177,12 +176,14 @@ function listerBoosters($inshop = 0){
   return parcoursRs(SQLSelect($sql));
 }
 
+// Créer un booster
 function créerBooster($name, $cost, $nbCommon, $nbUncommon, $nbEpic, $nbLegendary, $nbRandom){
     return SQLInsert("
     INSERT INTO Boosters(name, cost, nbCommon, nbUncommon, nbEpic, nbLegendary, nbRandom)
     VALUES('$name', '$cost', '$nbCommon', '$nbUncommon', '$nbEpic', '$nbLegendary', '$nbRandom');");
 }
 
+// Supprime un booster
 function supprimerBooster($idBooster)
 {
     return SQLDelete("
@@ -190,6 +191,7 @@ function supprimerBooster($idBooster)
     WHERE id='$idBooster';");
 }
 
+// Donne les information d'un booster
 function infoBooster($idBooster){
     return parcoursRs(SQLSelect("
     SELECT id, name, cost, nbCommon, nbUncommon, nbEpic, nbLegendary, nbRandom
@@ -197,13 +199,14 @@ function infoBooster($idBooster){
     WHERE id='$idBooster';"));
 }
 
+// Donne à un utilisateur un booster
 function giveBooster($idUser, $idBooster){
   return SQLInsert("
   INSERT INTO BoosterInventory(ownerId, boosterId)
   VALUES('$idUser', '$idBooster');");
 }
 
-
+// Achat d'un utilisateur (NE PAS OUBLIER SI C'EST >= 0 AVANT L'ACHAT DANS LE CONTROLEUR)
 function achat($idUser, $cost){
   return SQLUpdate("
     UPDATE Users
