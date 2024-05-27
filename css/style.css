@@ -80,6 +80,8 @@ body {
     border-radius: 15px;
     text-align: center;
     background: var(--booster-bg);
+    display: inline-block;
+    margin: 10px;
 }
 
 .booster p{

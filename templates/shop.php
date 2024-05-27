@@ -11,9 +11,14 @@ if (!valider("connected", "SESSION")) {
 	die("");
 }
 
-echo "TODO";
 
-$boosters = listerboosters();
+$boosters = listerboosters(1);
 
-tprint($boosters);
+echo "<div>";
+for ($i=0; $i < count($boosters); $i++) {
+	echo "<a href=\"index.php?view=boosterinfo&idBooster=" . $boosters[$i]["id"]. "\">";
+	mkBooster($boosters[$i]["name"], $boosters[$i]["cost"] . " Coins");
+	echo "</a>";
+}
+echo "</div>";
 ?>

@@ -239,6 +239,18 @@ session_start();
 				$qs = "?view=administration";
 			break;
 
+			case 'Acheter booster':
+				if((valider("connected","SESSION")) &&
+				   ($idBooster = valider("idBooster", "GET")) &&
+				   ($cost = valider("cost", "GET")) &&
+				   (getCoins(valider("idUser", "SESSION")) - $cost >= 0)){
+						achat(valider("idUser", "SESSION"), $cost);
+						giveBooster(valider("idUser", "SESSION"), $idBooster);
+				   }
+				else {
+					$qs["message"] = "Pas assez de coins !";
+				}
+			break;
 		}
 
 	}

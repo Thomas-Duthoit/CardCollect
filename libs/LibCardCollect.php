@@ -25,6 +25,13 @@ function mkCard($rarity, $img, $nom){
     echo "</div>";
 }
 
+function mkBooster($name, $cost){
+    echo "<div class=\"booster\">";
+        echo "<span>" . $name . "</span>";
+        echo "<p>". $cost . "</p>";
+    echo "</div>";
+}
+
 
 
 ?>

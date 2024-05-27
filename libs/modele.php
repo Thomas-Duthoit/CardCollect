@@ -162,11 +162,18 @@ function créerQuestion($name, $content, $answer, $reward)
 }
 
 /* ----------- ! BOOSTERS ! ----------- */
-function listerBoosters(){
+// Liste les boosters
+function listerBoosters($inshop = 0){
     $sql = "
     SELECT id, name, cost, nbCommon, nbUncommon, nbEpic, nbLegendary, nbRandom, inShop
-    FROM Boosters;
-  ";
+    FROM Boosters";
+    if ($inshop == 0) {
+      $sql = $sql . ";";
+    }
+    else {
+      $sql = $sql . " WHERE inShop;";
+    }
+
   return parcoursRs(SQLSelect($sql));
 }
 
@@ -182,4 +189,26 @@ function supprimerBooster($idBooster)
     DELETE FROM Boosters
     WHERE id='$idBooster';");
 }
+
+function infoBooster($idBooster){
+    return parcoursRs(SQLSelect("
+    SELECT id, name, cost, nbCommon, nbUncommon, nbEpic, nbLegendary, nbRandom
+    FROM Boosters
+    WHERE id='$idBooster';"));
+}
+
+function giveBooster($idUser, $idBooster){
+  return SQLInsert("
+  INSERT INTO BoosterInventory(ownerId, boosterId)
+  VALUES('$idUser', '$idBooster');");
+}
+
+
+function achat($idUser, $cost){
+  return SQLUpdate("
+    UPDATE Users
+    SET coins = coins - '$cost'
+    WHERE id = '$idUser';");
+}
+
 ?>
