@@ -80,6 +80,18 @@ function listerUtilisateurs($classe = "both")
   return parcoursRs(SQLSelect($sql));
 }
 
+function getCoins($id){
+  return SQLGetChamp("
+  SELECT coins
+  FROM Users
+  WHERE id='$id';");
+}
+
+
+
+
+
+
 // Autorise un utilisateur
 function autoriserUtilisateur($idUser)
 {
