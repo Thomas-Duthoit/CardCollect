@@ -37,9 +37,10 @@ echo "<div id=\"navbar_buttons\">";
 		echo "<a class=\"crimson_button\" href=\"index.php?view=login\">Connexion</a>\n";
 		echo "<a class=\"crimson_button\" href=\"index.php?view=register\">Inscription</a>\n";
 	}
-	else {
+	else {  // si on est connecté:
 		echo getCoins(valider("idUser", "SESSION")) . " Coins";
 		echo "<a class=\"crimson_button\" href=\"index.php?view=shop\">Achat Boosters</a>\n";
+		echo "<a class=\"crimson_button\" href=\"index.php?view=podium\">Classement</a>\n";
 	}
 	if (valider("connected", "SESSION") && (valider("permissions", "SESSION") >= 1)) {
 		echo "<a class=\"crimson_button\" href=\"index.php?view=moderation\">Modération</a>\n";

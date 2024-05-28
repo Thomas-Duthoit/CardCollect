@@ -133,6 +133,23 @@ function retrograde($idUser)
     WHERE id = '$idUser';");
 }
 
+//Obtenir le classement des utilisateurs
+function classement($limit=10) 
+{
+  $sql = "SELECT u.pseudo AS pseudo, COUNT(DISTINCT c.cardId) AS uniques, COUNT(c.cardId) AS cards, u.coins AS coins
+          FROM Users AS u
+          
+          JOIN Circulation AS c
+            ON u.id = c.ownerId
+          GROUP BY u.pseudo
+          ORDER BY COUNT(DISTINCT c.cardId) DESC,
+                   COUNT(c.cardId) DESC,
+                   u.coins DESC
+          LIMIT 10";
+  echo $sql;
+  return parcoursRs(SQLSelect($sql));
+}
+
 /* ----------- ! QUESTIONS ! ----------- */
 // Liste les questions
 function listerQuestions()

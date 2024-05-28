@@ -108,10 +108,9 @@ body {
 #site_header{
     background-color: var(--dark);
     display: inline-block;
-    height: 70px;
+    height: 75px;
     width: 100vw;
     z-index: 2;
-
 }
 
 /*    #site_logo    */
@@ -130,6 +129,7 @@ body {
     display: inline-block;
     position: absolute;
     right: 10px; top: 25px;
+    color: var(--white);
 }
 /*    #navbar_buttons>a  */
 #navbar_buttons>a{
