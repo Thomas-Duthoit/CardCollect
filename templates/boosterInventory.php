@@ -11,6 +11,19 @@ if (!valider("connected", "SESSION")) {
 	die("");
 }
 
-echo "Have fun =)";
+$idUser = valider("idUser", "SESSION");
+$boosters = boosterInventory($idUser);
 
+echo "<div style=\"margin-bottom: 20px;\">";
+echo "<h2 style=\"display: inline-block; margin-left: 10px\">Mes boosters</h2>";
+echo "<a id=\"switch_vue\" href=\"index.php?view=boosterInventory\">Voir mes cartes</a>\n";
+echo "</div>";
+
+echo "<hr />";
+echo "<p class=binv_info>Clique sur un booster pour l'ouvrir!</p>";
+echo "<div class=\"booster_inv\">";
+foreach ($boosters as $b) {
+	mkBooster($b["name"], 0, $b["nbCarte"]);
+}
+echo "</div>";
 ?>

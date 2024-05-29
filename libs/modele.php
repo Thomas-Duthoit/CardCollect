@@ -262,4 +262,12 @@ function cardInventory($idUser){
   AND Circulation.inMarket = 0;
   "));
 }
+
+function boosterInventory($idUser) {
+  $sql = "SELECT I.id as invId,  B.name, B.nbCommon + B.nbUncommon + B.nbEpic + B.nbLegendary + B.nbRandom as nbCarte
+          FROM BoosterInventory as I
+          JOIN Boosters as B ON B.id = I.boosterId
+          WHERE I.ownerId = '$idUser'";
+  return parcoursRs(SQLSelect($sql));
+}
 ?>

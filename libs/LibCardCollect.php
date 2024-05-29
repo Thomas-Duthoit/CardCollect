@@ -25,11 +25,18 @@ function mkCard($rarity, $img, $nom){
     echo "</div>";
 }
 
-function mkBooster($name, $cost){
-    echo "<div class=\"booster\">";
-        echo "<span>" . $name . "</span>";
-        echo "<p>". $cost . "</p>";
-    echo "</div>";
+function mkBooster($name, $cost, $cardsCount="NO"){
+    if ($cardsCount == "NO") {
+        echo "<div class=\"booster\">";
+            echo "<span>" . $name . "</span>";
+            echo "<p>". $cost . "</p>";
+        echo "</div>";
+    } else {
+        echo "<div class=\"booster\">";
+            echo "<span>" . $name . "</span>";
+            echo "<p>". $cardsCount . " cartes</p>";
+        echo "</div>";
+    }
 }
 
 function mkPodium($id, $user) {

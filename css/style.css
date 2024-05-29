@@ -77,9 +77,10 @@ body {
 .r2 {background: var(--r2-bg);}
 .r3 {background: var(--r3-bg);}
 .r4{background: var(--r4-bg);}
-
 .random{background-color:  var(--dark);}
 
+
+/*    .booster    */
 .booster{
     width: 300px;
     height: 400px;
@@ -158,8 +159,8 @@ body {
 #site_footer{
     background-color: var(--dark);
     display: inline-block;
-    position: absolute;
-    bottom:0;
+    position: fixed;
+    bottom: 0;
     left: 0;
     right: 0;
     color: var(--white);
@@ -343,5 +344,17 @@ source: http://blog.bruyere-freelance.fr/styliser-checkbox-css-proprement/
 
 .podium_titre {
     width: 100vw;
+    text-align: center;
+}
+
+/*    booster_inv    */
+.booster_inv {
+    width: calc(320*4px);
+    margin: auto;
+}
+
+/*    .binv_info    */
+.binv_info {
+    width: 100%;
     text-align: center;
 }
