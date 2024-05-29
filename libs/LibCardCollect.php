@@ -32,6 +32,19 @@ function mkBooster($name, $cost){
     echo "</div>";
 }
 
+function mkPodium($id, $user) {
+    echo "<div class=\"podium\"";
+    if ($id <= 3) echo " id=\"top_$id\"";
+    echo "><p>";
+    echo "#$id - ";
+    echo $user["pseudo"];
+    echo "</p>";
+    echo "<span>";
+    echo "uniques : " . $user["uniques"] . "  -  total : " . $user["cards"] . "  -  coins :" . $user["coins"];
+    echo "</span>";
+    echo "</div>";
+}
+
 
 
 ?>

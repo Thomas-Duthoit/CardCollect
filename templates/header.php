@@ -41,6 +41,7 @@ echo "<div id=\"navbar_buttons\">";
 		echo getCoins(valider("idUser", "SESSION")) . " Coins";
 		echo "<a class=\"crimson_button\" href=\"index.php?view=shop\">Achat Boosters</a>\n";
 		echo "<a class=\"crimson_button\" href=\"index.php?view=podium\">Classement</a>\n";
+		echo "<a class=\"crimson_button\" href=\"index.php?view=cardInventory\">Inventaire</a>\n";
 	}
 	if (valider("connected", "SESSION") && (valider("permissions", "SESSION") >= 1)) {
 		echo "<a class=\"crimson_button\" href=\"index.php?view=moderation\">Modération</a>\n";

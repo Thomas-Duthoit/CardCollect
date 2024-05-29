@@ -133,8 +133,8 @@ function retrograde($idUser)
     WHERE id = '$idUser';");
 }
 
-//Obtenir le classement des utilisateurs
-function classement($limit=10) 
+//Obtenir le classement des 25 meilleurs utilisateurs
+function classement() 
 {
   $sql = "SELECT u.pseudo AS pseudo, COUNT(DISTINCT c.cardId) AS uniques, COUNT(c.cardId) AS cards, u.coins AS coins
           FROM Users AS u
@@ -145,8 +145,7 @@ function classement($limit=10)
           ORDER BY COUNT(DISTINCT c.cardId) DESC,
                    COUNT(c.cardId) DESC,
                    u.coins DESC
-          LIMIT 10";
-  echo $sql;
+          LIMIT 25";
   return parcoursRs(SQLSelect($sql));
 }
 
@@ -231,4 +230,12 @@ function achat($idUser, $cost){
     WHERE id = '$idUser';");
 }
 
+/* ----------- ! INVENTORY ! ----------- */
+function cardInventory($idUser){
+  return parcoursRs(SQLSelect("
+  SELECT Cards.name, Cards.description, Cards.idCreator, Cards.minia_path, Cards.poster_path, Cards.rarity
+  FROM Cards JOIN ON Cards.id = Circulation.cardId
+  WHERE '$idUser' = Circulation.ownerId AND Circulation.inMarket = 0;
+  "));
+}
 ?>

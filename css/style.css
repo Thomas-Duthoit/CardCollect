@@ -14,6 +14,10 @@
     --booster-bg: linear-gradient(135deg, var(--crimson) ,var(--dark));
 
     --radial-bg: radial-gradient(var(--crimson), var(--dark) 80%    );
+
+    --bg-t1: var(--r4-bg);
+    --bg-t2: linear-gradient(to right, #ffffff, #241f1c);
+    --bg-t3: linear-gradient(to right, #bd6218, #ff7017);
 }
 
 * {
@@ -285,3 +289,45 @@ source: http://blog.bruyere-freelance.fr/styliser-checkbox-css-proprement/
     }
 }
 
+
+/*    .podium    */
+.podium {
+    
+    width: 50vw;
+    background-color: var(--lgray);
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 20px;
+    position: relative;
+    height: 30px;
+    border: 1px solid var(--black);
+}
+
+.podium p {
+    position:absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    height: 30px;
+    margin: 20px;
+    padding-left: 50px;
+}
+.podium span {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 30px;
+    margin: 20px;
+    padding-right: 50px;
+}
+
+#top_1 { background: var(--bg-t1); }
+#top_2 { background: var(--bg-t2); }
+#top_2 span { color: var(--white);}
+#top_3 { background: var(--bg-t3); }
+
+.podium_titre {
+    width: 100vw;
+    text-align: center;
+}

@@ -11,14 +11,10 @@ if (!valider("connected", "SESSION")) {
 	die("");
 }
 
+$cardInv = cardInventory(valider("idUser", "SESSION"));
+tprint($cardInv);
 
-
-$podium = classement();
-
-echo "<div>";
-    echo "<h2 class=\"podium_titre\">Classement</h2>";
-	for ($i=0; $i<count($podium); $i++) {
-		mkPodium ($i+1, $podium[$i]);
-	}
-echo "</div>";
+for ($i=0; $i < count($cardInv) ; $i++) { 
+    mkCard($cardInv[$i]["Cards.rarity"], $cardInv[$i]["Cards.minia_path"],$cardInv[$i]["Cards.name"]);
+}
 ?>
