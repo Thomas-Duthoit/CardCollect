@@ -20,7 +20,7 @@ function verificationMail($id, $code, $mail, $login){
 
 function mkCard($rarity, $img, $nom){
     echo "<div class=\"card r" . $rarity . "\">";
-        echo "<img src=\"" . $img . "\" alt=\"miniature\">";
+        echo "<img src=\"./img/" . $img . "\" alt=\"miniature\">";
         echo "<p>" . $nom . "</p>";
     echo "</div>";
 }

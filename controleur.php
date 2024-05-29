@@ -208,6 +208,37 @@ session_start();
 			break;
 
 
+			case 'Ajouter shop':
+			if((valider("connected","SESSION")) &&
+			(valider("permissions", "SESSION") == 2)  &&
+			($idBooster = valider("idBooster", "GET"))){
+				if (is_array($idBooster)) {
+					foreach($idBooster as $nextIdBooster) {
+						ajouterShop($nextIdBooster);
+					}
+				}
+				else {
+					ajouterShop($idBooster);
+				}
+			}
+			$qs = "?view=administration";
+			break;
+
+			case 'Retirer shop':
+				if((valider("connected","SESSION")) &&
+				(valider("permissions", "SESSION") == 2)  &&
+				($idBooster = valider("idBooster", "GET"))){
+					if (is_array($idBooster)) {
+						foreach($idBooster as $nextIdBooster) {
+							retirerShop($nextIdBooster);
+						}
+					}
+					else {
+						retirerShop($idBooster);
+					}
+				}
+			$qs = "?view=administration";
+			break;
 			
 			case 'Supprimer booster':
 				if((valider("connected","SESSION")) &&
@@ -215,10 +246,13 @@ session_start();
 				($idBooster = valider("idBooster", "GET"))){ 
 					if (is_array($idBooster)) {
 						foreach($idBooster as $nextIdBooster) {
+							supprimerBoosterInv($nextIdBooster);
 							supprimerBooster($nextIdBooster); 
 						}
 					} else {
+						supprimerBoosterInv($idBooster);
 						supprimerBooster($idBooster); 
+
 					}
 				}
 				$qs = "?view=administration";

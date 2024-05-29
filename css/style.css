@@ -257,6 +257,20 @@ body {
     background-color: black;
 }
 
+/* ----------- ! ADMINISTRATION ! ----------- */
+#switch_vue{
+    text-decoration: none;
+    color: var(--black);
+    margin-left: 950px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+
+
+
+
+
 /*    .crimson_cb    */
 /*
 styliser une cb:

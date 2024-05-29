@@ -74,6 +74,8 @@ $idBooster = valider("idBooster", "GET");
         <?php
             mkForm();
             mkSelect("idBooster[]", $boosters,"id", "name", $idBooster, "inShop");
+            mkInput("submit", "action", "Ajouter shop");
+            mkInput("submit", "action", "Retirer shop");
             mkInput("submit", "action", "Supprimer booster");
             endForm();
            

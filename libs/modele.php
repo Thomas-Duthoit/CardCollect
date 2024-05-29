@@ -207,6 +207,13 @@ function supprimerBooster($idBooster)
     WHERE id='$idBooster';");
 }
 
+function supprimerBoosterInv($idBooster)
+{
+  return SQLDelete("
+  DELETE FROM BoosterInventory
+  WHERE boosterId='$idBooster';");
+}
+
 // Donne les information d'un booster
 function infoBooster($idBooster){
     return parcoursRs(SQLSelect("
@@ -222,6 +229,22 @@ function giveBooster($idUser, $idBooster){
   VALUES('$idUser', '$idBooster');");
 }
 
+// Rend le booster disponible au shop
+function ajouterShop($idBooster){
+  return SQLUpdate("
+  UPDATE Boosters
+  SET inShop = 1
+  WHERE id='$idBooster';");
+}
+
+// Rend indisponible le booster au shop
+function retirerShop($idBooster){
+  return SQLUpdate("
+  UPDATE Boosters
+  SET inShop = 0
+  WHERE id='$idBooster';");
+}
+
 // Achat d'un utilisateur (NE PAS OUBLIER SI C'EST >= 0 AVANT L'ACHAT DANS LE CONTROLEUR)
 function achat($idUser, $cost){
   return SQLUpdate("
@@ -234,8 +257,9 @@ function achat($idUser, $cost){
 function cardInventory($idUser){
   return parcoursRs(SQLSelect("
   SELECT Cards.name, Cards.description, Cards.idCreator, Cards.minia_path, Cards.poster_path, Cards.rarity
-  FROM Cards JOIN ON Cards.id = Circulation.cardId
-  WHERE '$idUser' = Circulation.ownerId AND Circulation.inMarket = 0;
+  FROM Cards JOIN Circulation ON Cards.id = Circulation.cardId
+  WHERE '$idUser' = Circulation.ownerId 
+  AND Circulation.inMarket = 0;
   "));
 }
 ?>

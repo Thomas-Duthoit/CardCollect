@@ -24,7 +24,7 @@ CREATE TABLE `Users` (
   `pseudo` varchar(20) NOT NULL,
   `pass` varchar(50) NOT NULL,
   `privileges` int NOT NULL DEFAULT 0,
-  `allowed` int DEFAULT 0,
+  `allowed` int DEFAULT 1,
   `coins` int DEFAULT 200,
 
   PRIMARY KEY (id)
