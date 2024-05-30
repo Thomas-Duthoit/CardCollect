@@ -55,6 +55,8 @@ body {
     border-radius: 15px;
     text-align: center;
     background-color: var(--dark);
+    display: inline-block;
+    margin: 10px;
 }
 
 .card img{
@@ -129,6 +131,12 @@ body {
     height: 75px;
     width: 100vw;
     z-index: 2;
+    position: absolute;
+    top: 0;
+}
+
+.spacer {
+    height: 75px;
 }
 
 /*    #site_logo    */
@@ -185,7 +193,6 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    /*z-index: -1;*/
     display: flex;
     align-items: center;
     justify-content: center;

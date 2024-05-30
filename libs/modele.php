@@ -206,7 +206,7 @@ function supprimerBooster($idBooster)
     DELETE FROM Boosters
     WHERE id='$idBooster';");
 }
-
+// Supprime un booster des inventaires.
 function supprimerBoosterInv($idBooster)
 {
   return SQLDelete("
@@ -254,6 +254,8 @@ function achat($idUser, $cost){
 }
 
 /* ----------- ! INVENTORY ! ----------- */
+
+// Liste les cartes dans l'inventaire d'un utilisateur
 function cardInventory($idUser){
   return parcoursRs(SQLSelect("
   SELECT Cards.name, Cards.description, Cards.idCreator, Cards.minia_path, Cards.poster_path, Cards.rarity
@@ -263,6 +265,7 @@ function cardInventory($idUser){
   "));
 }
 
+// Liste les boosters dans l'inventaire d'un utilisateur
 function boosterInventory($idUser) {
   $sql = "SELECT I.id as invId,  B.name, B.nbCommon + B.nbUncommon + B.nbEpic + B.nbLegendary + B.nbRandom as nbCarte
           FROM BoosterInventory as I
@@ -270,4 +273,30 @@ function boosterInventory($idUser) {
           WHERE I.ownerId = '$idUser'";
   return parcoursRs(SQLSelect($sql));
 }
+
+/* ----------- ! CARDS ! ----------- */
+
+// Liste les cartes dans la BDD
+function listerCards(){
+  $sql = "
+  SELECT id, name, description, idCreator, minia_path, poster_path, rarity
+  FROM Cards";
+return parcoursRs(SQLSelect($sql));
+}
+
+// Supprime une carte de la BDD
+function supprimerCard($idCard){
+  return SQLDelete("
+  DELETE FROM Cards
+  WHERE id='$idCard';");
+}
+
+// Supprimer les cartes dans la BDD
+function supprimerCardInv($idCard)
+{
+  return SQLDelete("
+  DELETE FROM Circulation
+  WHERE cardId='$idCard';");
+}
+
 ?>

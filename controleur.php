@@ -26,6 +26,9 @@ session_start();
 		*/
 
 		// Un paramètre action a été soumis, on fait le boulot...
+
+		$urlBase = dirname($_SERVER["PHP_SELF"]) . "/index.php";
+
 		switch($action)
 		{
 			
@@ -100,6 +103,7 @@ session_start();
 					autoriserUtilisateur($idUser); 
 				}
 				$qs = "?view=administration"; 
+				header("Location:" . $urlBase . $qs);
 			break;
 
 			case 'Interdire' : 
@@ -114,6 +118,7 @@ session_start();
 					interdireUtilisateur($idUser); 
 				}
 				$qs = "?view=administration"; 
+				header("Location:" . $urlBase . $qs);
 			break; 
 
 			case 'Promouvoir modérateur' :
@@ -128,6 +133,7 @@ session_start();
 					promoModerateur($idUser); 
 				}
 				$qs = "?view=administration"; 
+				header("Location:" . $urlBase . $qs);
 			break;
 
 			case 'Promouvoir administrateur' :
@@ -142,6 +148,7 @@ session_start();
 					promoAdmin($idUser); 
 				}
 				$qs = "?view=administration"; 
+				header("Location:" . $urlBase . $qs);
 			break;
 
 			case 'Rétrograder' :
@@ -156,6 +163,7 @@ session_start();
 					retrograde($idUser); 
 				}
 				$qs = "?view=administration"; 
+				header("Location:" . $urlBase . $qs);
 			break;
 
 			case 'Créer compte':
@@ -176,6 +184,7 @@ session_start();
 				 autoriserUtilisateur(getId($login));
 				}
 				$qs = "?view=administration"; 
+				header("Location:" . $urlBase . $qs);
 			break;
 
 
@@ -193,6 +202,7 @@ session_start();
 					}
 				}
 				$qs = "?view=administration";
+				header("Location:" . $urlBase . $qs);
 			break;
 
 			case 'Créer question':
@@ -205,6 +215,7 @@ session_start();
 					créerQuestion($name, $content, $answer, $reward);
 				}
 				$qs = "?view=administration";
+				header("Location:" . $urlBase . $qs);
 			break;
 
 
@@ -222,6 +233,7 @@ session_start();
 				}
 			}
 			$qs = "?view=administration";
+			header("Location:" . $urlBase . $qs);
 			break;
 
 			case 'Retirer shop':
@@ -238,6 +250,7 @@ session_start();
 					}
 				}
 			$qs = "?view=administration";
+			header("Location:" . $urlBase . $qs);
 			break;
 			
 			case 'Supprimer booster':
@@ -256,6 +269,7 @@ session_start();
 					}
 				}
 				$qs = "?view=administration";
+				header("Location:" . $urlBase . $qs);
 			break;
 
 			case 'Créer booster':
@@ -271,6 +285,7 @@ session_start();
 					créerBooster($name, $cost, $nbCommon, $nbUncommon, $nbEpic, $nbLegendary, $nbRandom);
 				}
 				$qs = "?view=administration";
+				header("Location:" . $urlBase . $qs);
 			break;
 
 			case 'Acheter booster':
@@ -285,6 +300,28 @@ session_start();
 					$qs["message"] = "Pas assez de coins !";
 				}
 			break;
+
+			case 'Supprimer carte':
+				if((valider("connected","SESSION")) &&
+				(valider("permissions", "SESSION") == 2)  &&
+				($idCard = valider("idCard", "GET"))){ 
+					if (is_array($idCard)) {
+						foreach($idCard as $nextIdCard) {
+							supprimerCardInv($nextIdCard);
+							supprimerCard($nextIdCard); 
+						}
+					} else {
+						supprimerCardInv($idCard);
+						supprimerCard($idCard); 
+					}
+				}
+				$qs = "?view=administration";
+				header("Location:" . $urlBase . $qs);
+	
+
+				case 'OuvrirBooster':
+					// TODO: implementer
+				break;
 		}
 
 	}

@@ -13,15 +13,16 @@ if (!valider("connected", "SESSION")) {
 
 $cardInv = cardInventory(valider("idUser", "SESSION"));
 
-echo "<div style=\"margin-bottom: 20px;\">";
+echo "<div style=\"margin-bottom: 20px; margin-top: 90px\">";
 echo "<h2 style=\"display: inline-block; margin-left: 10px\">Mes cartes</h2>";
 echo "<a class=\"crimson_button\" style=\"display:inline-block; margin-left: 20px;\" href=\"index.php?view=publication\">Créer les miennes</a>\n";
-echo "<a id=\"switch_vue\" href=\"index.php?view=boosterInventory\">Mes boosters</a>\n";
+echo "<a id=\"switch_vue\" href=\"index.php?view=boosterInventory\">Voir mes boosters</a>\n";
 echo "</div>";
 
 echo "<hr />";
-
+echo "<div class=\"booster_inv\">";
 for ($i=0; $i < count($cardInv) ; $i++) { 
     mkCard($cardInv[$i]["rarity"], $cardInv[$i]["minia_path"],$cardInv[$i]["name"]);
 }
+echo "</div>";
 ?>

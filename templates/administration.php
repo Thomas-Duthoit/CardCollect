@@ -14,10 +14,12 @@ if (!valider("connected", "SESSION") || (valider("permissions", "SESSION") != 2)
 $users = listerUtilisateurs();
 $questions = listerQuestions();
 $boosters = listerBoosters();
+$cards = listerCards();
 
 $idUser = valider("idUser", "GET");
 $idQuestion = valider("idQuestion", "GET");
 $idBooster = valider("idBooster", "GET");
+$idCard = valider("idCard", "GET");
 ?>
 
 <div id="administration">
@@ -102,5 +104,18 @@ $idBooster = valider("idBooster", "GET");
         ?>
     </div>
     <hr />
-
+    <h2>Administration cartes</h2>
+    <div>
+        <?php
+            mkForm();
+            mkSelect("idCard[]", $cards,"id", "name", $idCard, "idCreator");
+            mkInput("submit", "action", "Supprimer carte");
+            endForm();
+        ?>
+    </div>
+    <div>
+        <?php
+        ?>
+    </div>
+    <div style="height: 500px"></div>
 </div>
