@@ -138,7 +138,6 @@ function classement()
 {
   $sql = "SELECT u.pseudo AS pseudo, COUNT(DISTINCT c.cardId) AS uniques, COUNT(c.cardId) AS cards, u.coins AS coins
           FROM Users AS u
-          
           JOIN Circulation AS c
             ON u.id = c.ownerId
           GROUP BY u.pseudo
@@ -274,6 +273,16 @@ function boosterInventory($idUser) {
   return parcoursRs(SQLSelect($sql));
 }
 
+function getBoosterInInv($invId) {
+  $sql = "SELECT * FROM BoosterInventory WHERE id = '$invId'";
+  return parcoursRs(SQLSelect($sql))[0];
+}
+
+function rmBoosterFromInv($invId) {
+  $sql = "DELETE FROM BoosterInventory WHERE id = '$invId'";
+  return SQLDelete($sql);
+}
+
 /* ----------- ! CARDS ! ----------- */
 
 // Liste les cartes dans la BDD
@@ -299,4 +308,18 @@ function supprimerCardInv($idCard)
   WHERE cardId='$idCard';");
 }
 
+/* ----------- ! OPENING ! ----------- */
+function getRandomCard($rarity="any") {
+  if ($rarity == "any") {
+    $sql = "SELECT id FROM Cards ORDER BY RAND() LIMIT 1";
+  } else {
+    $sql = "SELECT id FROM Cards WHERE rarity='$rarity' ORDER BY RAND() LIMIT 1"; 
+  }
+  return SQLGetChamp($sql);
+}
+
+function addCardToUser($idUser, $idCard) {
+  $sql = "INSERT INTO Circulation (ownerId, cardId, inMarket) VALUES ('$idUser','$idCard',0)";
+  return SQLInsert($sql);
+}
 ?>

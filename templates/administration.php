@@ -108,13 +108,29 @@ $idCard = valider("idCard", "GET");
     <div>
         <?php
             mkForm();
-            mkSelect("idCard[]", $cards,"id", "name", $idCard, "idCreator");
+            mkSelect("idCard[]", $cards,"id", "name", $idCard, "rarity");
             mkInput("submit", "action", "Supprimer carte");
             endForm();
         ?>
     </div>
     <div>
+    <h3>Création d'une carte</h3>
         <?php
+            mkform("controleur.php", "post", "enctype=\"multipart/form-data\"");
+            mkInput("text", "name", "", "placeholder=\"Nom\"");
+            mkInput("text", "description", "", "placeholder=\"Description\"");
+            echo "<br />";
+            echo "Miniature : ";
+            mkInput("file", "minia", "id=\"MiniaToUpload\"");
+            echo "<br />";
+            echo "Poster : ";
+            mkInput("file", "poster", "\"\"", "id=\"PosterToUpload\"");
+            echo "<br />";
+            echo "Rareté : ";
+            mkInput("number", "rarity", "", "min=\"0\" max=\"3\"");
+            echo "<br />";
+            mkInput("submit", "action", "Créer carte");
+            endForm();
         ?>
     </div>
     <div style="height: 500px"></div>

@@ -9,6 +9,7 @@ session_start();
 
 
 	$qs = $_GET;
+	$redirect = FALSE;
 
 	if ($action = valider("action"))
 	{
@@ -26,8 +27,6 @@ session_start();
 		*/
 
 		// Un paramètre action a été soumis, on fait le boulot...
-
-		$urlBase = dirname($_SERVER["PHP_SELF"]) . "/index.php";
 
 		switch($action)
 		{
@@ -103,7 +102,7 @@ session_start();
 					autoriserUtilisateur($idUser); 
 				}
 				$qs = "?view=administration"; 
-				header("Location:" . $urlBase . $qs);
+				$redirect = TRUE;
 			break;
 
 			case 'Interdire' : 
@@ -118,7 +117,7 @@ session_start();
 					interdireUtilisateur($idUser); 
 				}
 				$qs = "?view=administration"; 
-				header("Location:" . $urlBase . $qs);
+				$redirect = TRUE;
 			break; 
 
 			case 'Promouvoir modérateur' :
@@ -133,7 +132,7 @@ session_start();
 					promoModerateur($idUser); 
 				}
 				$qs = "?view=administration"; 
-				header("Location:" . $urlBase . $qs);
+				$redirect = TRUE;
 			break;
 
 			case 'Promouvoir administrateur' :
@@ -148,7 +147,6 @@ session_start();
 					promoAdmin($idUser); 
 				}
 				$qs = "?view=administration"; 
-				header("Location:" . $urlBase . $qs);
 			break;
 
 			case 'Rétrograder' :
@@ -163,7 +161,6 @@ session_start();
 					retrograde($idUser); 
 				}
 				$qs = "?view=administration"; 
-				header("Location:" . $urlBase . $qs);
 			break;
 
 			case 'Créer compte':
@@ -184,7 +181,6 @@ session_start();
 				 autoriserUtilisateur(getId($login));
 				}
 				$qs = "?view=administration"; 
-				header("Location:" . $urlBase . $qs);
 			break;
 
 
@@ -202,7 +198,6 @@ session_start();
 					}
 				}
 				$qs = "?view=administration";
-				header("Location:" . $urlBase . $qs);
 			break;
 
 			case 'Créer question':
@@ -215,7 +210,6 @@ session_start();
 					créerQuestion($name, $content, $answer, $reward);
 				}
 				$qs = "?view=administration";
-				header("Location:" . $urlBase . $qs);
 			break;
 
 
@@ -233,7 +227,6 @@ session_start();
 				}
 			}
 			$qs = "?view=administration";
-			header("Location:" . $urlBase . $qs);
 			break;
 
 			case 'Retirer shop':
@@ -250,7 +243,6 @@ session_start();
 					}
 				}
 			$qs = "?view=administration";
-			header("Location:" . $urlBase . $qs);
 			break;
 			
 			case 'Supprimer booster':
@@ -269,7 +261,6 @@ session_start();
 					}
 				}
 				$qs = "?view=administration";
-				header("Location:" . $urlBase . $qs);
 			break;
 
 			case 'Créer booster':
@@ -285,7 +276,6 @@ session_start();
 					créerBooster($name, $cost, $nbCommon, $nbUncommon, $nbEpic, $nbLegendary, $nbRandom);
 				}
 				$qs = "?view=administration";
-				header("Location:" . $urlBase . $qs);
 			break;
 
 			case 'Acheter booster':
@@ -316,12 +306,85 @@ session_start();
 					}
 				}
 				$qs = "?view=administration";
-				header("Location:" . $urlBase . $qs);
+			break;
 	
+			case 'Créer carte':
+				$target_dir = "./img/";
+				$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+				if((valider("connected","SESSION")) &&				// TOUTES LES CONDITIONS POUR LA CREATION DE CARTE
+				(valider("permissions", "SESSION") == 2)  &&
+				($name = valider("name", "POST")) &&
+				($description = valider("description", "POST")) &&
+				($idCreator = valider("idUser", "SESSION")) &&
+				($rarity = valider("rarity", "POST")) &&
+				(valider("submit", "POST"))){
+						$target_file_minia = $target_dir . basename($_FILES["minia"]["name"]);
+						$target_file_poster = $target_dir . basename($_FILES["poster"]["name"]);
 
-				case 'OuvrirBooster':
-					// TODO: implementer
-				break;
+						$fileType_minia = strtolower(pathinfo($target_file_minia,PATHINFO_EXTENSION));
+						$fileType_poster = strtolower(pathinfo($target_file_poster,PATHINFO_EXTENSION));
+
+						move_uploaded_file($_FILES["minia"]["tmp_name"], $target_file);
+						move_uploaded_file($_FILES["poster"]["tmp_name"], $target_file);
+				}
+			break;
+
+
+
+
+			case 'OuvrirBooster':
+				if ($idUser = valider("idUser", "SESSION"))
+				if ($idBooster = valider("idBooster", "GET")) {
+					$boosterInfo = getBoosterInInv($idBooster);
+					if ($boosterInfo["ownerId"] == $idUser) {
+						echo "ouverture du booster: $idBooster :";
+						tprint($boosterInfo);
+						echo "Retrait de la BDD <br />";
+						rmBoosterFromInv($idBooster);
+						echo "Type de booster à ouvrir: " . $boosterInfo["boosterId"] . "<br />";
+						$toOpen = infoBooster($boosterInfo["boosterId"])[0];
+						$cards = array();
+						tprint($toOpen);
+						echo "<hr />";
+						echo "cartes communes obtenues: <br/>";
+						for ($i=0; $i<$toOpen["nbCommon"]; $i++) {
+							$looted = getRandomCard(0);
+							$cards[] = $looted;
+							echo $looted . "<br />";
+						}
+						echo "cartes non-communes obtenues: <br/>";
+						for ($i=0; $i<$toOpen["nbUncommon"]; $i++) {
+							$looted = getRandomCard(1);
+							$cards[] = $looted;
+							echo $looted . "<br />";
+						}
+						echo "cartes épiques obtenues: <br/>";
+						for ($i=0; $i<$toOpen["nbEpic"]; $i++) {
+							$looted = getRandomCard(2);
+							$cards[] = $looted;
+							echo $looted . "<br />";
+						}
+						echo "cartes légendaires obtenues: <br/>";
+						for ($i=0; $i<$toOpen["nbLegendary"]; $i++) {
+							$looted = getRandomCard(3);
+							$cards[] = $looted;
+							echo $looted . "<br />";
+						}
+						echo "cartes random obtenues: <br/>";
+						for ($i=0; $i<$toOpen["nbRandom"]; $i++) {
+							$looted = getRandomCard();
+							$cards[] = $looted;
+							echo $looted . "<br />";
+						}
+						echo "Récapitulatif:";
+						tprint($cards);
+						foreach ($cards as $c) {
+							addCardToUser($idUser, $c);
+						}
+					}
+				}
+				
+			break;
 		}
 
 	}
@@ -332,9 +395,11 @@ session_start();
 
 	$urlBase = dirname($_SERVER["PHP_SELF"]) . "/index.php";
 	// On redirige vers la page index avec les bons arguments
-	//header("Location:" . $urlBase . $qs);
-	rediriger($urlBase, $qs);
-
+	if ($redirect) {
+		header("Location:" . $urlBase . $qs);
+	} else {
+		rediriger($urlBase, $qs);
+	}
 	// On écrit seulement après cette entête
 	ob_end_flush();
 	

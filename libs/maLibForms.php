@@ -129,10 +129,10 @@ function mkSelect($nomChampSelect, $tabData,$champValue, $champLabel,$selected=f
 	echo "</select>\n";
 }
 
-function mkForm($action="controleur.php",$method="get")
+function mkForm($action="controleur.php",$method="get", $other="")
 {
 	// Produit une balise de formulaire NB : penser à la balise fermante !!
-	echo "<form action=\"$action\" method=\"$method\" >\n";
+	echo "<form action=\"$action\" method=\"$method\" $other >\n";
 }
 function endForm()
 {

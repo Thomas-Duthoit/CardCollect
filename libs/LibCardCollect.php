@@ -25,17 +25,17 @@ function mkCard($rarity, $img, $nom){
     echo "</div>";
 }
 
-function mkBooster($name, $cost, $cardsCount="NO"){
+function mkBooster($name, $cost, $cardsCount="NO", $id=0){
     if ($cardsCount == "NO") {
         echo "<div class=\"booster\">";
             echo "<span>" . $name . "</span>";
             echo "<p>". $cost . "</p>";
         echo "</div>";
     } else {
-        echo "<div class=\"booster\">";
+        echo "<a href=\"controleur.php?action=OuvrirBooster&idBooster=" . $id . "\"><div class=\"booster\">";
             echo "<span>" . $name . "</span>";
             echo "<p>". $cardsCount . " cartes</p>";
-        echo "</div>";
+        echo "</div></a>";
     }
 }
 

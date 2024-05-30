@@ -23,7 +23,7 @@ echo "<hr />";
 echo "<p class=binv_info>Clique sur un booster pour l'ouvrir!</p>";
 echo "<div class=\"booster_inv\">";
 foreach ($boosters as $b) {
-	mkBooster($b["name"], 0, $b["nbCarte"]);
+	mkBooster($b["name"], 0, $b["nbCarte"], $b["invId"]);
 }
 echo "</div>";
 ?>
