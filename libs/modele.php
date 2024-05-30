@@ -308,6 +308,12 @@ function supprimerCardInv($idCard)
   WHERE cardId='$idCard';");
 }
 
+function createCard($name, $description, $idCreator, $minia_path, $poster_path, $rarity){
+  return SQLInsert("
+  INSERT INTO Cards(name, description, idCreator, minia_path, poster_path, rarity)
+  VALUES('$name', '$description', '$idCreator', '$minia_path', '$poster_path', '$rarity');");
+}
+
 /* ----------- ! OPENING ! ----------- */
 function getRandomCard($rarity="any") {
   if ($rarity == "any") {
