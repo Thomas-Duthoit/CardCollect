@@ -12,7 +12,7 @@ if (!valider("connected", "SESSION")) {
 }
 ?>
 
-<div id="form_publication">
+<div>
     <h1>Publier une carte</h1>
     <?php
         mkform("controleur.php", "post", "enctype=\"multipart/form-data\"");
@@ -28,14 +28,13 @@ if (!valider("connected", "SESSION")) {
         echo "Rareté : ";
         mkInput("number", "rarity", "", "min=\"0\" max=\"3\"");
         echo "<br />";
-        mkInput("submit", "action", "Publier", "class=\"crimson_button\"");
+        mkInput("submit", "action", "Publier");
         endForm();
     ?>
 </div>
-<div style="display: inline-block;">
+<div>
     <h1>Règles</h1>
     <p>La miniature doit faire une taille de 300x300 px. Les posters font maximum du 4K.</p>
-    <p>Les cartes ne doivent contenir aucun contenu explicite.</p>
-    <p>Elles ne doivent pas non plus avoir une orientation politique ou quelconque forme de haine.</p>
+    <p>Les cartes ne doivent contenir aucun contenu explicite. Elles ne doivent pas non plus avoir une orientation politique ou quelconque forme de haine.</p>
     <p>Tout manquement à ces règles encoureront des sanctions.</p>
 </div>

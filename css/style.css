@@ -403,43 +403,27 @@ source: http://blog.bruyere-freelance.fr/styliser-checkbox-css-proprement/
     border-radius: 15px;
     color: var(--white);
     position: static;
-    width: 90%;
-    margin-bottom: 10px;
 }
 
-.publication>.publication_minia {
+.publication>#publication_minia {
         width: 300px;
         height: 300px;
         display: inline-block;
-        margin-right: 10px;
 }
 
-.publication>.publication_poster {
+.publication>#publication_poster {
     width: 720px;
     height: 480px;
     display: inline-block;
 }
 
-.publication>.publication_infos {
+.publication>div {
     display: inline-block;
     margin-left: 10px;
     position: relative;
     bottom: 320px;
 }
 
-.publication>.publication_choice {
-    display: inline-block;
-    margin-left: 20px;
-}
-
-#form_publication{
-    display: inline-block;
-    margin-left: 250px;
-    margin-top: 100px;
-    margin-right: 10px;
-    padding-right: 100px;
-    border-right: 1px solid var(--black);
-}
 
 /*    #opening  */
 #opening {

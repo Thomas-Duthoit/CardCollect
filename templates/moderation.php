@@ -11,12 +11,5 @@ if (!valider("connected", "SESSION") || (valider("permissions", "SESSION") < 1))
 	die("");
 }
 
-$publications = listerPublications();
-
-echo "<div style=\"padding-left: 50px;\">";
-for ($i=0; $i < count($publications) ; $i++) {
-    mkPublication($publications[$i]["id"],$publications[$i]["minia_path"], $publications[$i]["poster_path"], $publications[$i]["name"], $publications[$i]["description"], getUsername($publications[$i]["idCreator"]));
-}
-echo "</div>";
-
+echo "TODO";
 ?>

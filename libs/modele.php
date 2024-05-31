@@ -148,13 +148,6 @@ function classement()
   return parcoursRs(SQLSelect($sql));
 }
 
-// Récupère le pseudo d'un utilisateur selon son id
-function getUsername($id){
-  return SQLGetChamp("
-  SELECT pseudo
-  FROM Users
-  WHERE id='$id';");
-}
 /* ----------- ! QUESTIONS ! ----------- */
 // Liste les questions
 function listerQuestions()
@@ -288,35 +281,6 @@ function getBoosterInInv($invId) {
 function rmBoosterFromInv($invId) {
   $sql = "DELETE FROM BoosterInventory WHERE id = '$invId'";
   return SQLDelete($sql);
-}
-/* ----------- ! PUBLICATION ! ----------- */
-// Liste les publications
-function listerPublications(){
-  $sql = "SELECT * FROM Publications";
-  return parcoursRs(SQLSelect($sql));
-}
-
-// Récupère les informations d'une publication selon son id
-function infoPublication($id){
-  return parcoursRs(SQLSelect("
-  SELECT name, description, idCreator, minia_path, poster_path, rarity
-  FROM Publications
-  WHERE id='$id';"));
-}
-
-
-// Créer une publication
-function createPublication($name, $description, $idCreator, $minia_path, $poster_path, $rarity){
-return SQLInsert("
-INSERT INTO Publications(name, description, idCreator, minia_path, poster_path, rarity)
-VALUES('$name', '$description', '$idCreator', '$minia_path', '$poster_path', '$rarity');");
-}
-
-// Supprime une publication
-function deletePublication($id){
-    return SQLDelete("
-    DELETE FROM Publications
-    WHERE id='$id';");
 }
 
 /* ----------- ! CARDS ! ----------- */
