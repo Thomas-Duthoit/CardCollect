@@ -298,7 +298,7 @@ session_start();
 					if (is_array($idCard)) {
 						foreach($idCard as $nextIdCard) {
 							supprimerCardInv($nextIdCard);
-							supprimerCard($nextIdCard); 
+							supprimerCard($nextIdCard);
 						}
 					} else {
 						supprimerCardInv($idCard);
@@ -327,14 +327,13 @@ session_start();
 
 						if(($fileType_minia == "jpg" || $fileType_minia == "png" || $fileType_minia == "jpeg") &&		// VERIFICATION DU FORMAT
 						   ($fileType_poster == "jpg" || $fileType_poster == "png" || $fileType_poster == "jpeg")){
-								tprint($_FILES);
 								$minia_info = getimagesize($_FILES["minia"]["tmp_name"]);
 								$poster_info = getimagesize($_FILES["poster"]["tmp_name"]);
 
 								if(($minia_info[0] <= 300) && ($minia_info[1] <= 300) &&					// VERIFICATION DES DIMENSIONS
 								($poster_info[0] <= 3840) && ($poster_info[1] <= 2160)) {
-									/*if((move_uploaded_file($_FILES["minia"]["tmp_name"], $target_dir . $_FILES["minia"]["name"])) &&
-									(move_uploaded_file($_FILES["poster"]["tmp_name"], $target_dir . $_FILES["poster"]["name"])))*/
+									if((move_uploaded_file($_FILES["minia"]["tmp_name"], $target_dir . $_FILES["minia"]["name"])) &&
+									(move_uploaded_file($_FILES["poster"]["tmp_name"], $target_dir . $_FILES["poster"]["name"])))
 										createCard($name, $description, $idCreator, $_FILES["minia"]["name"], $_FILES["poster"]["name"], $rarity);		
 							}
 						}
@@ -342,8 +341,55 @@ session_start();
 				}
 			break;
 
+			case 'Publier':
+				$target_dir = "img/";
+				if((valider("connected","SESSION")) &&				// TOUTES LES CONDITIONS POUR LA CREATION DE CARTE
+				($name = valider("name", "POST")) &&
+				($description = valider("description", "POST")) &&
+				($idCreator = valider("idUser", "SESSION"))){
+					if ($_POST["rarity"] == "0") {$rarity = 0;}
+					else {$rarity = valider("rarity", "POST");}
 
+						$target_file_minia = $target_dir . basename($_FILES["minia"]["name"]);
+						$target_file_poster = $target_dir . basename($_FILES["poster"]["name"]);
+						$fileType_minia = strtolower(pathinfo($target_file_minia,PATHINFO_EXTENSION));
+						$fileType_poster = strtolower(pathinfo($target_file_poster,PATHINFO_EXTENSION));
+						$_FILES["minia"]["name"] = date("ymdHis") . "_" . $name . "_minia" . "." . $fileType_minia;
+						$_FILES["poster"]["name"] = date("ymdHis") . "_" . $name . "_poster" . "." . $fileType_poster;
 
+						if(($fileType_minia == "jpg" || $fileType_minia == "png" || $fileType_minia == "jpeg") &&		// VERIFICATION DU FORMAT
+						   ($fileType_poster == "jpg" || $fileType_poster == "png" || $fileType_poster == "jpeg")){
+								$minia_info = getimagesize($_FILES["minia"]["tmp_name"]);
+								$poster_info = getimagesize($_FILES["poster"]["tmp_name"]);
+
+								if(($minia_info[0] <= 300) && ($minia_info[1] <= 300) &&					// VERIFICATION DES DIMENSIONS
+								($poster_info[0] <= 3840) && ($poster_info[1] <= 2160)) {
+									if((move_uploaded_file($_FILES["minia"]["tmp_name"], $target_dir . $_FILES["minia"]["name"])) &&
+									(move_uploaded_file($_FILES["poster"]["tmp_name"], $target_dir . $_FILES["poster"]["name"])))
+										createPublication($name, $description, $idCreator, $_FILES["minia"]["name"], $_FILES["poster"]["name"], $rarity);		
+							}
+						}
+
+				}
+			break;
+
+			case 'AccepterPublication':
+				if((valider("connected","SESSION")) &&				// TOUTES LES CONDITIONS POUR LA CREATION DE CARTE
+				($idPublication = valider("idPublication", "GET")) &&
+				(valider("permissions", "SESSION") >= 1)){
+					$publication = infoPublication($idPublication);
+					createCard($publication[0]["name"], $publication[0]["description"], $publication[0]["idCreator"], $publication[0]["minia_path"], $publication[0]["poster_path"], $publication[0]["rarity"]);
+					deletePublication($idPublication);
+				}
+			break;
+			
+			case 'RefuserPublication':
+				if((valider("connected","SESSION")) &&				// TOUTES LES CONDITIONS POUR LA CREATION DE CARTE
+				($idPublication = valider("idPublication", "GET")) &&
+				(valider("permissions", "SESSION") >= 1)){
+					deletePublication($idPublication);
+				}
+			break;
 
 			case 'OuvrirBooster':
 				if (valider("connected", "SESSION"))
