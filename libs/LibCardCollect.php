@@ -59,6 +59,24 @@ function mkPodium($id, $user) {
     echo "</div>";
 }
 
-
+function mkPublication($id, $minia, $poster, $name, $description, $creator){
+    echo "<div class=\"publication\">";
+        echo "<img src=\"img/".$minia."\" alt=\"miniature publication\" class=\"publication_minia\">";
+        echo "<img src=\"img/".$poster."\" alt=\"poster publication\" class=\"publication_poster\">";
+        echo "<div class=\"publication_infos\">";
+            echo    "<span>Nom : ".$name."</span>";
+            echo     "<p>Description : ".$description."</p>";
+            echo     "<span>Crée par : ".$creator."</span>";
+        echo "</div>";
+            echo "<div class=\"publication_choice\">";
+                echo "<a style=\"margin-right:10px;\" href=\"controleur.php?action=AccepterPublication&idPublication=".$id."\">";
+                echo "<img src=\"ressources/check_icon.png\" alt=\"check_icon\">";
+                echo "</a>";
+                echo "<a href=\"controleur.php?action=RefuserPublication&idPublication=".$id."\">";
+                echo "<img src=\"ressources/cross_icon.png\" alt=\"cross_icon\">";
+                echo "</a>";
+            echo "</div>";
+    echo "</div>";
+}
 
 ?>
