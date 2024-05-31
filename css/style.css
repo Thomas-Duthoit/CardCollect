@@ -74,6 +74,37 @@ body {
     line-height: 100px;
 }
 
+
+
+/*    .card_to_reveal    */
+.card_to_reveal {
+    width: 300px;
+    height: 400px;
+    border-radius: 15px;
+    text-align: center;
+    background-color: var(--dark);
+    display: block;
+    margin: 10px;
+    position: absolute;
+    left: calc(25vw - 150px + var(--card_idx) * 10px);
+    top: calc(50vh - 200px - var(--card_idx) * 10px);
+ }
+
+.card_to_reveal img{
+    margin: 10px 10px 0 10px;
+    width: calc(100% - 20px);
+    border-radius: 15px;
+}
+
+.card_to_reveal p{
+    color: var(--white);
+    border-top: 1px solid var(--white);
+    margin-top: 0px;
+    height: 100px;
+    vertical-align: middle;
+    line-height: 100px;
+}
+
 /*    card rarity    */
 .r1 {background: var(--r1-bg);}
 .r2 {background: var(--r2-bg);}
@@ -364,4 +395,37 @@ source: http://blog.bruyere-freelance.fr/styliser-checkbox-css-proprement/
 .binv_info {
     width: 100%;
     text-align: center;
+}
+
+/*    .publication   */
+.publication {
+    background: var(--dark);
+    border-radius: 15px;
+    color: var(--white);
+    position: static;
+}
+
+.publication>#publication_minia {
+        width: 300px;
+        height: 300px;
+        display: inline-block;
+}
+
+.publication>#publication_poster {
+    width: 720px;
+    height: 480px;
+    display: inline-block;
+}
+
+.publication>div {
+    display: inline-block;
+    margin-left: 10px;
+    position: relative;
+    bottom: 320px;
+}
+
+
+/*    #opening  */
+#opening {
+    overflow: hidden;
 }

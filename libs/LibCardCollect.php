@@ -25,6 +25,13 @@ function mkCard($rarity, $img, $nom){
     echo "</div>";
 }
 
+function mkCardOpening($i, $data) {
+    echo "<div class=\"card_to_reveal r" . $data["rarity"]+1 . "\" style=\"--card_idx: " . $i . "\">";
+        echo "<img src=\"img/" . $data["minia_path"] . "\" alt=\"miniature\">";
+        echo "<p>" . $data["name"] . "</p>";
+    echo "</div>";
+}
+
 function mkBooster($name, $cost, $cardsCount="NO", $id=0){
     if ($cardsCount == "NO") {
         echo "<div class=\"booster\">";

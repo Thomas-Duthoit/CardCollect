@@ -8,7 +8,7 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 }
 
 ?>
-
+<div style="height: 500px"></div>
 <div id="site_footer">
 
 <div>© BERESZYNSKI Ewen - DUTHOIT Thomas</div>

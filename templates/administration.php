@@ -133,5 +133,5 @@ $idCard = valider("idCard", "GET");
             endForm();
         ?>
     </div>
-    <div style="height: 500px"></div>
+    <!--<div style="height: 500px"></div> -->
 </div>

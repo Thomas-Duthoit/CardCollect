@@ -314,6 +314,12 @@ function createCard($name, $description, $idCreator, $minia_path, $poster_path, 
   VALUES('$name', '$description', '$idCreator', '$minia_path', '$poster_path', '$rarity');");
 }
 
+function cardInfo($idCard){
+  return parcoursRs(SQLSelect("
+  SELECT * FROM Cards WHERE id='$idCard'
+  "))[0];
+}
+
 /* ----------- ! OPENING ! ----------- */
 function getRandomCard($rarity="any") {
   if ($rarity == "any") {

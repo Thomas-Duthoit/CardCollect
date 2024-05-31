@@ -309,7 +309,7 @@ session_start();
 			break;
 	
 			case 'Créer carte':
-				$target_dir = "./img/";
+				$target_dir = "img/";
 				if((valider("connected","SESSION")) &&				// TOUTES LES CONDITIONS POUR LA CREATION DE CARTE
 				(valider("permissions", "SESSION") == 2)  &&
 				($name = valider("name", "POST")) &&
@@ -322,23 +322,21 @@ session_start();
 						$target_file_poster = $target_dir . basename($_FILES["poster"]["name"]);
 						$fileType_minia = strtolower(pathinfo($target_file_minia,PATHINFO_EXTENSION));
 						$fileType_poster = strtolower(pathinfo($target_file_poster,PATHINFO_EXTENSION));
-						$_FILES["minia"]["name"] = date("ymdHis") . "_" . $name . "_minia_" . "." . $fileType_minia;
-						$_FILES["poster"]["name"] = date("ymdHis") . "_" . $name . "_poster_" . "." . $fileType_poster;
+						$_FILES["minia"]["name"] = date("ymdHis") . "_" . $name . "_minia" . "." . $fileType_minia;
+						$_FILES["poster"]["name"] = date("ymdHis") . "_" . $name . "_poster" . "." . $fileType_poster;
 
 						if(($fileType_minia == "jpg" || $fileType_minia == "png" || $fileType_minia == "jpeg") &&		// VERIFICATION DU FORMAT
 						   ($fileType_poster == "jpg" || $fileType_poster == "png" || $fileType_poster == "jpeg")){
-
+								tprint($_FILES);
 								$minia_info = getimagesize($_FILES["minia"]["tmp_name"]);
 								$poster_info = getimagesize($_FILES["poster"]["tmp_name"]);
 
 								if(($minia_info[0] <= 300) && ($minia_info[1] <= 300) &&					// VERIFICATION DES DIMENSIONS
 								($poster_info[0] <= 3840) && ($poster_info[1] <= 2160)) {
-									move_uploaded_file($_FILES["minia"]["tmp_name"], $target_dir . $_FILES["minia"]["name"]);
-									move_uploaded_file($_FILES["poster"]["tmp_name"], $target_dir . $_FILES["poster"]["name"]);
-									createCard($name, $description, $idCreator, $_FILES["minia"]["name"], $_FILES["poster"]["name"], $rarity);		
+									/*if((move_uploaded_file($_FILES["minia"]["tmp_name"], $target_dir . $_FILES["minia"]["name"])) &&
+									(move_uploaded_file($_FILES["poster"]["tmp_name"], $target_dir . $_FILES["poster"]["name"])))*/
+										createCard($name, $description, $idCreator, $_FILES["minia"]["name"], $_FILES["poster"]["name"], $rarity);		
 							}
-
-							
 						}
 
 				}
@@ -348,6 +346,7 @@ session_start();
 
 
 			case 'OuvrirBooster':
+				if (valider("connected", "SESSION"))
 				if ($idUser = valider("idUser", "SESSION"))
 				if ($idBooster = valider("idBooster", "GET")) {
 					$boosterInfo = getBoosterInInv($idBooster);
@@ -393,9 +392,14 @@ session_start();
 						}
 						echo "Récapitulatif:";
 						tprint($cards);
+
+						$qs = "?view=opening";
+						$redirect = TRUE;
 						foreach ($cards as $c) {
 							addCardToUser($idUser, $c);
+							$qs =  $qs . "&cards[]=$c";
 						}
+
 					}
 				}
 				
