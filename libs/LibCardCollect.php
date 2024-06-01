@@ -25,8 +25,8 @@ function mkCard($rarity, $img, $nom){
     echo "</div>";
 }
 
-function mkCardOpening($i, $data) {
-    echo "<div class=\"card_to_reveal r" . $data["rarity"]+1 . "\" style=\"--card_idx: " . $i . "\">";
+function mkCardOpening($i, $c, $data) {
+    echo "<div class=\"card_to_reveal r" . $data["rarity"]+1 . "\" style=\"--card_idx: " . $i . "; --card_count: " . $c . "\">";
         echo "<img src=\"img/" . $data["minia_path"] . "\" alt=\"miniature\">";
         echo "<p>" . $data["name"] . "</p>";
     echo "</div>";

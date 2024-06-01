@@ -18,6 +18,8 @@
     --bg-t1: var(--r4-bg);
     --bg-t2: linear-gradient(to right, #ffffff, #241f1c);
     --bg-t3: linear-gradient(to right, #bd6218, #ff7017);
+
+    --reveal-glow: rgba(255, 255, 255, 0.363);
 }
 
 * {
@@ -74,7 +76,38 @@ body {
     line-height: 100px;
 }
 
+@keyframes reveal {
+    from {
+        left: calc(25vw - 150px + var(--card_idx) * 10px);
+    }  
 
+    30% {
+        transform:translateZ(300px) rotateY(70deg);
+        box-shadow: 0 0 3px 3px var(--reveal-glow);
+    }
+
+    40% {
+        transform:translateZ(350px) rotateY(90deg);
+        box-shadow: 0 0 20px 20px var(--reveal-glow);
+    }
+    
+    50% {
+        transform:translateZ(300px) rotateY(110deg);
+        box-shadow: 0 0 3px 3px var(--reveal-glow);
+    }
+
+
+    to {
+        left: calc(75vw - 150px + (var(--card_count) - var(--card_idx)) * 10px);
+        top: calc(50vh - 200px - (var(--card_count) - var(--card_idx)) * 10px);;
+        z-index: calc(1 + var(--card_idx));
+        transform: rotateY(180deg);
+    } 
+}
+
+@keyframes hideCache {
+    from {} to {}
+}
 
 /*    .card_to_reveal    */
 .card_to_reveal {
@@ -88,6 +121,7 @@ body {
     position: absolute;
     left: calc(25vw - 150px + var(--card_idx) * 10px);
     top: calc(50vh - 200px - var(--card_idx) * 10px);
+    transition-duration: .5s;
  }
 
 .card_to_reveal img{
@@ -444,4 +478,6 @@ source: http://blog.bruyere-freelance.fr/styliser-checkbox-css-proprement/
 /*    #opening  */
 #opening {
     overflow: hidden;
+    perspective: 1000px;
+    transform-style: preserve-3d;
 }

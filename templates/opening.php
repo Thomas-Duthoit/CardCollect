@@ -20,9 +20,11 @@ if (!($cards = valider("cards", "GET"))) {
 
 
 echo "<div class=\"radial_bg\" id=\"opening\">";
-for ($i=0; $i<count($cards);$i++) {
+for ($i=count($cards)-1; $i>=0;$i--) {
     $data = cardInfo($cards[$i]);
-    mkCardOpening($i, $data);
+    mkCardOpening($i, count($cards)-1, $data);
 }
 echo "</div>";
 ?>
+
+<script src="js/opening.js"></script>

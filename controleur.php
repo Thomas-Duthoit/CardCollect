@@ -366,7 +366,7 @@ session_start();
 								($poster_info[0] <= 3840) && ($poster_info[1] <= 2160)) {
 									if((move_uploaded_file($_FILES["minia"]["tmp_name"], $target_dir . $_FILES["minia"]["name"])) &&
 									(move_uploaded_file($_FILES["poster"]["tmp_name"], $target_dir . $_FILES["poster"]["name"])))
-										createPublication($name, $description, $idCreator, $_FILES["minia"]["name"], $_FILES["poster"]["name"], $rarity);		
+										createPublication($name, $description, $idCreator, $_FILES["minia"]["name"], $_FILES["poster"]["name"], $rarity);
 							}
 						}
 
