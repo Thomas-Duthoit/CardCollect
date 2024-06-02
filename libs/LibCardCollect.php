@@ -30,6 +30,7 @@ function mkCardOpening($i, $c, $data) {
         echo "<img src=\"img/" . $data["minia_path"] . "\" alt=\"miniature\">";
         echo "<p>" . $data["name"] . "</p>";
     echo "</div>";
+    echo "<div class=card_cache style=\"--card_idx: " . $i . "; --card_count: " . $c . "\">?</div>";
 }
 
 function mkBooster($name, $cost, $cardsCount="NO", $id=0){

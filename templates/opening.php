@@ -20,6 +20,7 @@ if (!($cards = valider("cards", "GET"))) {
 
 
 echo "<div class=\"radial_bg\" id=\"opening\">";
+echo "<p id=\"cards_remaining\">XX cartes restantes<p>";
 for ($i=count($cards)-1; $i>=0;$i--) {
     $data = cardInfo($cards[$i]);
     mkCardOpening($i, count($cards)-1, $data);
