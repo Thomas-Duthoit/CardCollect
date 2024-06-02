@@ -39,6 +39,7 @@ echo "<div id=\"navbar_buttons\">";
 	}
 	else {  // si on est connecté:
 		echo getCoins(valider("idUser", "SESSION")) . " Coins";
+		echo "<a class=\"more_coins_btn\" href=\"index.php?view=questions\">+</a>\n";
 		echo "<a class=\"crimson_button\" href=\"index.php?view=shop\">Achat Boosters</a>\n";
 		echo "<a class=\"crimson_button\" href=\"index.php?view=podium\">Classement</a>\n";
 		echo "<a class=\"crimson_button\" href=\"index.php?view=cardInventory\">Inventaire</a>\n";

@@ -556,3 +556,38 @@ source: http://blog.bruyere-freelance.fr/styliser-checkbox-css-proprement/
     margin: 0;
     user-select: none;
 }
+
+/*    QUESTIONS    */
+.more_coins_btn {
+    display: inline-block;
+    background-color: var(--crimson);
+    color: var(--white);
+    text-decoration: none;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    border-radius: 50%;
+    font-weight: bold;
+    vertical-align: middle;
+    transition-duration: .5s;
+}
+
+.more_coins_btn:hover {
+    transition-duration: .5s;
+    transform: rotate(360deg);
+    background-color: var(--white);
+    color: var(--black);
+}
+
+
+
+.question {
+    background-color: var(--lgray);
+    margin: 20px;
+    border-radius: 25px;
+    padding: 10px;
+}
+
+.question td {
+    width: calc((100vw - 40px)/2);
+}
