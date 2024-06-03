@@ -344,6 +344,13 @@ function supprimerCardInv($idCard)
   WHERE cardId='$idCard';");
 }
 
+function supprimerCardMarket($idCard)
+{
+  return SQLDelete("
+  DELETE FROM MarketOffers
+  WHERE tradedCardId='$idCard' OR soldCardId='$idCard';");
+}
+
 function createCard($name, $description, $idCreator, $minia_path, $poster_path, $rarity){
   return SQLInsert("
   INSERT INTO Cards(name, description, idCreator, minia_path, poster_path, rarity)
@@ -370,4 +377,7 @@ function addCardToUser($idUser, $idCard) {
   $sql = "INSERT INTO Circulation (ownerId, cardId, inMarket) VALUES ('$idUser','$idCard',0)";
   return SQLInsert($sql);
 }
+
+/* ----------- ! MARKETPLACE ! ----------- */
+
 ?>

@@ -297,10 +297,12 @@ session_start();
 				($idCard = valider("idCard", "GET"))){ 
 					if (is_array($idCard)) {
 						foreach($idCard as $nextIdCard) {
+							supprimerCardMarket($nextIdCard);
 							supprimerCardInv($nextIdCard);
 							supprimerCard($nextIdCard);
 						}
 					} else {
+						supprimerCardMarket($idCard);
 						supprimerCardInv($idCard);
 						supprimerCard($idCard); 
 					}
@@ -327,15 +329,17 @@ session_start();
 
 						if(($fileType_minia == "jpg" || $fileType_minia == "png" || $fileType_minia == "jpeg") &&		// VERIFICATION DU FORMAT
 						   ($fileType_poster == "jpg" || $fileType_poster == "png" || $fileType_poster == "jpeg")){
-								$minia_info = getimagesize($_FILES["minia"]["tmp_name"]);
-								$poster_info = getimagesize($_FILES["poster"]["tmp_name"]);
-
-								if(($minia_info[0] <= 300) && ($minia_info[1] <= 300) &&					// VERIFICATION DES DIMENSIONS
-								($poster_info[0] <= 3840) && ($poster_info[1] <= 2160)) {
-									if((move_uploaded_file($_FILES["minia"]["tmp_name"], $target_dir . $_FILES["minia"]["name"])) &&
-									(move_uploaded_file($_FILES["poster"]["tmp_name"], $target_dir . $_FILES["poster"]["name"])))
-										createCard($name, $description, $idCreator, $_FILES["minia"]["name"], $_FILES["poster"]["name"], $rarity);		
-							}
+								tprint($_FILES);
+								if(($minia_info = getimagesize($_FILES["minia"]["tmp_name"])) &&
+								($poster_info = getimagesize($_FILES["poster"]["tmp_name"])))
+								{
+									if(($minia_info[0] <= 300) && ($minia_info[1] <= 300) &&					// VERIFICATION DES DIMENSIONS
+									($poster_info[0] <= 3840) && ($poster_info[1] <= 2160)) {
+										if((move_uploaded_file($_FILES["minia"]["tmp_name"], $target_dir . $_FILES["minia"]["name"])) &&
+										(move_uploaded_file($_FILES["poster"]["tmp_name"], $target_dir . $_FILES["poster"]["name"])))
+											createCard($name, $description, $idCreator, $_FILES["minia"]["name"], $_FILES["poster"]["name"], $rarity);		
+									}
+								}
 						}
 
 				}
