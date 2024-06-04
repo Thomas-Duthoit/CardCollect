@@ -41,21 +41,22 @@ session_start();
 					// On verifie l'utilisateur, 
 					// et on crée des variables de session si tout est OK
 					// Cf. maLibSecurisation
-					if (verifUser($login,$passe)) {
-						// tout s'est bien passé, doit-on se souvenir de la personne ? 
-						if (valider("remember")) {
-							setcookie("login",$login , time()+60*60*24*30);
-							setcookie("passe",$password, time()+60*60*24*30);
-							setcookie("remember",true, time()+60*60*24*30);
-						} else {
-							setcookie("login","", time()-3600);
-							setcookie("passe","", time()-3600);
-							setcookie("remember",false, time()-3600);
+					if(isAllowed($login))
+						if (verifUser($login,$passe)) {
+							// tout s'est bien passé, doit-on se souvenir de la personne ? 
+							if (valider("remember")) {
+								setcookie("login",$login , time()+60*60*24*30);
+								setcookie("passe",$password, time()+60*60*24*30);
+								setcookie("remember",true, time()+60*60*24*30);
+							} else {
+								setcookie("login","", time()-3600);
+								setcookie("passe","", time()-3600);
+								setcookie("remember",false, time()-3600);
+							}
 						}
-					}
-					else {
-						$qs["message"] = "Nom d'utilisateur ou mot de passe incorrect !";
-					}
+						else {
+							$qs["message"] = "Nom d'utilisateur ou mot de passe incorrect !";
+						}
 				}
 
 				// On redirigera vers la page index automatiquement
@@ -146,7 +147,8 @@ session_start();
 				} else {
 					promoAdmin($idUser); 
 				}
-				$qs = "?view=administration"; 
+				$qs = "?view=administration";
+				$redirect = TRUE;
 			break;
 
 			case 'Rétrograder' :
@@ -160,7 +162,8 @@ session_start();
 				} else {
 					retrograde($idUser); 
 				}
-				$qs = "?view=administration"; 
+				$qs = "?view=administration";
+				$redirect = TRUE;
 			break;
 
 			case 'Créer compte':
@@ -180,10 +183,9 @@ session_start();
 				 createUser($login, $passe, $email);
 				 autoriserUtilisateur(getId($login));
 				}
-				$qs = "?view=administration"; 
+				$qs = "?view=administration";
+				$redirect = TRUE;
 			break;
-
-
 
 			case 'Supprimer question':
 				if((valider("connected","SESSION")) &&
@@ -198,6 +200,7 @@ session_start();
 					}
 				}
 				$qs = "?view=administration";
+				$redirect = TRUE;
 			break;
 
 			case 'Créer question':
@@ -210,6 +213,7 @@ session_start();
 					créerQuestion($name, $content, $answer, $reward);
 				}
 				$qs = "?view=administration";
+				$redirect = TRUE;
 			break;
 
 
@@ -227,6 +231,7 @@ session_start();
 				}
 			}
 			$qs = "?view=administration";
+			$redirect = TRUE;
 			break;
 
 			case 'Retirer shop':
@@ -243,6 +248,7 @@ session_start();
 					}
 				}
 			$qs = "?view=administration";
+			$redirect = TRUE;
 			break;
 			
 			case 'Supprimer booster':
@@ -261,6 +267,7 @@ session_start();
 					}
 				}
 				$qs = "?view=administration";
+				$redirect = TRUE;
 			break;
 
 			case 'Créer booster':
@@ -276,6 +283,7 @@ session_start();
 					créerBooster($name, $cost, $nbCommon, $nbUncommon, $nbEpic, $nbLegendary, $nbRandom);
 				}
 				$qs = "?view=administration";
+				$redirect = TRUE;
 			break;
 
 			case 'Acheter booster':
@@ -308,6 +316,7 @@ session_start();
 					}
 				}
 				$qs = "?view=administration";
+				$redirect = TRUE;
 			break;
 	
 			case 'Créer carte':
@@ -333,7 +342,7 @@ session_start();
 								if(($minia_info = getimagesize($_FILES["minia"]["tmp_name"])) &&
 								($poster_info = getimagesize($_FILES["poster"]["tmp_name"])))
 								{
-									if(($minia_info[0] <= 300) && ($minia_info[1] <= 300) &&					// VERIFICATION DES DIMENSIONS
+									if(($minia_info[0] == 300) && ($minia_info[1] == 300) &&					// VERIFICATION DES DIMENSIONS
 									($poster_info[0] <= 3840) && ($poster_info[1] <= 2160)) {
 										if((move_uploaded_file($_FILES["minia"]["tmp_name"], $target_dir . $_FILES["minia"]["name"])) &&
 										(move_uploaded_file($_FILES["poster"]["tmp_name"], $target_dir . $_FILES["poster"]["name"])))
@@ -343,6 +352,8 @@ session_start();
 						}
 
 				}
+				$qs = "?view=administration";
+				$redirect = TRUE;
 			break;
 
 			case 'Publier':
@@ -366,7 +377,7 @@ session_start();
 								$minia_info = getimagesize($_FILES["minia"]["tmp_name"]);
 								$poster_info = getimagesize($_FILES["poster"]["tmp_name"]);
 
-								if(($minia_info[0] <= 300) && ($minia_info[1] <= 300) &&					// VERIFICATION DES DIMENSIONS
+								if(($minia_info[0] == 300) && ($minia_info[1] == 300) &&					// VERIFICATION DES DIMENSIONS
 								($poster_info[0] <= 3840) && ($poster_info[1] <= 2160)) {
 									if((move_uploaded_file($_FILES["minia"]["tmp_name"], $target_dir . $_FILES["minia"]["name"])) &&
 									(move_uploaded_file($_FILES["poster"]["tmp_name"], $target_dir . $_FILES["poster"]["name"])))
@@ -385,6 +396,8 @@ session_start();
 					createCard($publication[0]["name"], $publication[0]["description"], $publication[0]["idCreator"], $publication[0]["minia_path"], $publication[0]["poster_path"], $publication[0]["rarity"]);
 					deletePublication($idPublication);
 				}
+				$qs = "?view=moderation";
+				$redirect = TRUE;
 			break;
 			
 			case 'RefuserPublication':
@@ -393,6 +406,8 @@ session_start();
 				(valider("permissions", "SESSION") >= 1)){
 					deletePublication($idPublication);
 				}
+				$qs = "?view=moderation";
+				$redirect = TRUE;
 			break;
 
 			case 'OuvrirBooster':

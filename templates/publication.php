@@ -34,7 +34,7 @@ if (!valider("connected", "SESSION")) {
 </div>
 <div style="display: inline-block;">
     <h1>Règles</h1>
-    <p>La miniature doit faire une taille de 300x300 px. Les posters font maximum du 4K.</p>
+    <p>La miniature doit faire une taille de 300x300 px. Les posters font maximum du 4K et le nom de la carte ne doit pas contenir d'espace.</p>
     <p>Les cartes ne doivent contenir aucun contenu explicite.</p>
     <p>Elles ne doivent pas non plus avoir une orientation politique ou quelconque forme de haine.</p>
     <p>Tout manquement à ces règles encoureront des sanctions.</p>

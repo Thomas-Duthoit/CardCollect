@@ -14,6 +14,16 @@ function verifUserBdd($login, $passe)
       AND pass='$passe';
   ");
 }
+// Vérifie si l'utilisateur est autorisé
+function isAllowed($login)
+{
+  return SQLGetChamp("
+    SELECT allowed
+    FROM Users
+    WHERE pseudo='$login';
+  ");
+}
+
 
 // Récupère les permissions d'un utilisateur
 function getPermission($id){
