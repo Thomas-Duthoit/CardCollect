@@ -475,10 +475,11 @@ session_start();
 				if ($idUser = valider("idUser", "SESSION"))
 				if ($idQuestion = valider("questionId", "GET"))
 				if ($userAnswer = valider("answer", "GET")) {
+				if (count(isQuestionDone($idUser, $idQuestion)) == 0)
 					$q = getInfoQuestion($idQuestion);
 					if ($q["answer"] == $userAnswer) {
 						addCoinsToUser($idUser, $q["reward"]);
-						// TODO: ajouter l'association user question et c'est tout bon
+						questionDoneForUser($idUser, $idQuestion);
 					}
 				}
 				$qs = "?view=questions";

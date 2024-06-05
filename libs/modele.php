@@ -250,6 +250,16 @@ function addCoinsToUser($idUser, $amount) {
   WHERE id = '$idUser';");
 }
 
+function questionDoneForUser($idUser, $idQuestion) {
+  $sql = "INSERT INTO UserQuestions (userId, questionId) VALUES ('$idUser', '$idQuestion')";
+  return SQLInsert($sql);
+}
+
+function isQuestionDone($idUser, $idQuestion) {
+  $sql = "SELECT id FROM UserQuestions WHERE userId = '$idUser' AND questionId = '$idQuestion'";
+  return parcoursRs(SQLSelect($sql));
+}
+
 /* ----------- ! INVENTORY ! ----------- */
 
 // Liste les cartes dans l'inventaire d'un utilisateur
