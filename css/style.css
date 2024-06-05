@@ -592,6 +592,25 @@ source: http://blog.bruyere-freelance.fr/styliser-checkbox-css-proprement/
     width: calc((100vw - 40px)/2);
 }
 
+.question td:first-of-type {
+    border-right: 1px solid var(--dark);
+}
+
+.question_done {
+    background-color: var(--dark);
+    margin: 20px;
+    border-radius: 25px;
+    padding: 10px;
+    color: var(--white);
+}
+
+.question_done td {
+    width: calc((100vw - 40px)/2);
+}
+.question_done td:first-of-type {
+    border-right: 1px solid var(--crimson);
+}
+
 /* ----------- ! POPUP ! ----------- */
 .popup_trigger{
     cursor: pointer;

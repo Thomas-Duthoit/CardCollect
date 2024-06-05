@@ -165,32 +165,6 @@ function getUsername($id){
   FROM Users
   WHERE id='$id';");
 }
-/* ----------- ! QUESTIONS ! ----------- */
-// Liste les questions
-function listerQuestions()
-{
-  $sql = "
-    SELECT id, name, content, answer, reward
-    FROM Questions;
-  ";
-  return parcoursRs(SQLSelect($sql));
-}
-
-// Supprime une question
-function supprimerQuestion($idQuestion)
-{
-    return SQLDelete("
-    DELETE FROM Questions
-    WHERE id='$idQuestion';");
-}
-
-// Créer une question
-function créerQuestion($name, $content, $answer, $reward)
-{
-	return SQLInsert("
-    INSERT INTO Questions(name, content, answer, reward)
-    VALUES('$name', '$content', '$answer', '$reward');");
-}
 
 /* ----------- ! BOOSTERS ! ----------- */
 // Liste les boosters (Si on ne donne pas un autre int que 0 à inshop, on liste tous les boosters, sinon que ceux dans le shop)
@@ -267,6 +241,13 @@ function achat($idUser, $cost){
     UPDATE Users
     SET coins = coins - '$cost'
     WHERE id = '$idUser';");
+}
+
+function addCoinsToUser($idUser, $amount) {
+  return SQLUpdate("
+  UPDATE Users
+  SET coins = coins + '$amount'
+  WHERE id = '$idUser';");
 }
 
 /* ----------- ! INVENTORY ! ----------- */
@@ -390,5 +371,49 @@ function addCardToUser($idUser, $idCard) {
 }
 
 /* ----------- ! MARKETPLACE ! ----------- */
+
+
+
+/* ----------- ! QUESTIONS ! ----------- */
+// Liste les questions
+function listerQuestions()
+{
+  $sql = "
+    SELECT id, name, content, answer, reward
+    FROM Questions;
+  ";
+  return parcoursRs(SQLSelect($sql));
+}
+
+// Supprime une question
+function supprimerQuestion($idQuestion)
+{
+    return SQLDelete("
+    DELETE FROM Questions
+    WHERE id='$idQuestion';");
+}
+
+// Créer une question
+function créerQuestion($name, $content, $answer, $reward)
+{
+	return SQLInsert("
+    INSERT INTO Questions(name, content, answer, reward)
+    VALUES('$name', '$content', '$answer', '$reward');");
+}
+
+function getQuestionsUser($idUser) {
+  $sql = "SELECT questionId FROM UserQuestions WHERE userId = '$idUser'";
+  return parcoursRs(SQLSelect($sql));
+}
+
+function getInfoQuestion($idQuestion) {
+  $sql = "
+    SELECT id, name, content, answer, reward
+    FROM Questions WHERE id='$idQuestion';
+  ";
+  return parcoursRs(SQLSelect($sql))[0];
+}
+
+
 
 ?>

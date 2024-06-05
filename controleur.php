@@ -469,6 +469,21 @@ session_start();
 				}
 				
 			break;
+
+			case 'Repondre':
+				if (valider("connected", "SESSION"))
+				if ($idUser = valider("idUser", "SESSION"))
+				if ($idQuestion = valider("questionId", "GET"))
+				if ($userAnswer = valider("answer", "GET")) {
+					$q = getInfoQuestion($idQuestion);
+					if ($q["answer"] == $userAnswer) {
+						addCoinsToUser($idUser, $q["reward"]);
+						// TODO: ajouter l'association user question et c'est tout bon
+					}
+				}
+				$qs = "?view=questions";
+				$redirect = TRUE;
+			break;
 		}
 
 	}

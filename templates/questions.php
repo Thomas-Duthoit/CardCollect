@@ -11,10 +11,18 @@ if (!valider("connected", "SESSION")) {
 	die("");
 }
 
+$idUser = valider("idUser", "SESSION");
+
 $qlist = listerQuestions();
-tprint($qlist);
+// tprint($qlist);
+$qdone = getQuestionsUser($idUser);
+// tprint($qdone);
 foreach ($qlist as $q) {
-    mkQuestion($q);
+	$isAlreadyDone = FALSE;
+	foreach ($qdone as $qinfo) {
+		if ($qinfo["questionId"] == $q["id"]) $isAlreadyDone = TRUE;
+	}
+    mkQuestion($q, $isAlreadyDone);
 }
 
 ?>

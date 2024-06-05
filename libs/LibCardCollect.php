@@ -47,23 +47,40 @@ function mkBooster($name, $cost, $cardsCount="NO", $id=0){
     }
 }
 
-function mkQuestion($q) {
-    echo "<div class=\"question\">";
-    echo "<table>";
-    echo "<tr>";
-    echo "<td>";
-    echo "<h2>" . $q["name"] . "</h2>";
-    echo $q["content"];
-    echo "</td>";
-    echo "<td>";
-    mkForm("controleur.php");
-        mkInput("text", "answer", "Votre réponse");
-        mkInput("submit", "action", "Repondre");
-    endForm();
-    echo "</td>";
-    echo "</tr>";
-    echo "</table>";
-    echo "</div>";
+function mkQuestion($q, $done) {
+    if (!$done) {
+        echo "<div class=\"question\">";
+        echo "<table>";
+        echo "<tr>";
+        echo "<td>";
+        echo "<h2>" . $q["name"] . " | +" . $q["reward"] . " coins</h2>";
+        echo $q["content"];
+        echo "</td>";
+        echo "<td>";
+        mkForm("controleur.php");
+            mkInput("hidden", "questionId", $q["id"]);
+            mkInput("text", "answer", "", "placeholder=\"Votre réponse\"");
+            mkInput("submit", "action", "Repondre");
+        endForm();
+        echo "</td>";
+        echo "</tr>";
+        echo "</table>";
+        echo "</div>";
+    } else {
+        echo "<div class=\"question_done\">";
+        echo "<table>";
+        echo "<tr>";
+        echo "<td>";
+        echo "<h2>" . $q["name"] . " | +" . $q["reward"] . " coins</h2>";
+        echo $q["content"];
+        echo "</td>";
+        echo "<td>";
+        echo "Vous avez déjà répondu !";
+        echo "</td>";
+        echo "</tr>";
+        echo "</table>";
+        echo "</div>";
+    }
 }
 
 function mkPodium($id, $user) {

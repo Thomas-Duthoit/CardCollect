@@ -1,12 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 5.1.1deb5ubuntu1
--- https://www.phpmyadmin.net/
---
--- Hôte : localhost:3306
--- Généré le : mer. 05 juin 2024 à 11:54
--- Version du serveur : 8.0.36-0ubuntu0.22.04.1
--- Version de PHP : 8.1.2-1ubuntu2.14
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -31,7 +22,7 @@ CREATE TABLE `BoosterInventory` (
   `id` int NOT NULL,
   `ownerId` int NOT NULL,
   `boosterId` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+); 
 
 --
 -- Déchargement des données de la table `BoosterInventory`
@@ -56,7 +47,7 @@ CREATE TABLE `Boosters` (
   `nbLegendary` int NOT NULL,
   `nbRandom` int NOT NULL,
   `inShop` int NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 --
 -- Déchargement des données de la table `Boosters`
@@ -80,7 +71,7 @@ CREATE TABLE `Cards` (
   `minia_path` varchar(100) NOT NULL,
   `poster_path` varchar(100) NOT NULL,
   `rarity` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 --
 -- Déchargement des données de la table `Cards`
@@ -115,7 +106,7 @@ CREATE TABLE `Circulation` (
   `ownerId` int NOT NULL,
   `cardId` int NOT NULL,
   `inMarket` int NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- --------------------------------------------------------
 
@@ -129,7 +120,7 @@ CREATE TABLE `MarketOffers` (
   `soldCardId` int NOT NULL,
   `cost` int DEFAULT NULL,
   `tradedCardId` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- --------------------------------------------------------
 
@@ -145,7 +136,7 @@ CREATE TABLE `Publications` (
   `minia_path` varchar(100) NOT NULL,
   `poster_path` varchar(100) NOT NULL,
   `rarity` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ;
 
 --
 -- Déchargement des données de la table `Publications`
@@ -166,7 +157,7 @@ CREATE TABLE `Questions` (
   `content` varchar(3000) NOT NULL,
   `answer` varchar(100) NOT NULL,
   `reward` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 --
 -- Déchargement des données de la table `Questions`
@@ -186,7 +177,7 @@ CREATE TABLE `UserQuestions` (
   `id` int NOT NULL,
   `userId` int NOT NULL,
   `questionId` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- --------------------------------------------------------
 
@@ -202,7 +193,7 @@ CREATE TABLE `Users` (
   `privileges` int NOT NULL DEFAULT '0',
   `allowed` int DEFAULT '1',
   `coins` int DEFAULT '200'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ;
 
 --
 -- Déchargement des données de la table `Users`
