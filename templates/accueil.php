@@ -34,8 +34,8 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 		</span>
 	</div>
 	<hr />
-	<div>
-		<span id="invitation">Qu'attends-tu pour nous rejoindre ?!</span>
+	<div id="invitation">
+		<h3>Qu'attends-tu pour nous rejoindre ?!</h3>
 	</div>
 </div>
 
