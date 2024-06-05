@@ -56,7 +56,7 @@ echo "</div>";
 			popup_options.innerHTML = "<a href=\"img/"+cards_infos[i]["poster_path"]+"\" download=\""+cards_infos[i]["name"]+"\">" +
 									  "<img src=\"ressources/download_icon.png\" alt=\"download_icon\" id=\"popup_download\">";
 		
-			popup.style.display = "block";
+			popup.style.display = "flex";
 		}
 
 		function popup_close() {

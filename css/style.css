@@ -619,6 +619,7 @@ source: http://blog.bruyere-freelance.fr/styliser-checkbox-css-proprement/
 
 #popup{
     display: none;
+    justify-content: center;
     position: fixed;
     top: 0px;
     right: 0px;
@@ -628,8 +629,7 @@ source: http://blog.bruyere-freelance.fr/styliser-checkbox-css-proprement/
 }
 
 #popup_content{
-    position: absolute;
-    right: 13%;
+    position: relative;
     top: 80px;
     width: 1080px;
     height: 720px;
@@ -640,8 +640,8 @@ source: http://blog.bruyere-freelance.fr/styliser-checkbox-css-proprement/
 
 #popup_cross{
     cursor: pointer;
-    position: fixed;
-    left: 80%; top: 8%;
+    position: absolute;
+    left: 73%; top: 8%;
     z-index: 1;
 }
 
@@ -657,9 +657,9 @@ source: http://blog.bruyere-freelance.fr/styliser-checkbox-css-proprement/
     background-color: #000000;
     width:40px;
     border-radius: 10px;
-    position: relative;
-    left:88%;
-    top:80%;
+    position: absolute;
+    top: 75%;
+    right: 18%;
 }
 
 #popup_options img{
