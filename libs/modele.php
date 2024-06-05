@@ -277,7 +277,8 @@ function cardInventory($idUser){
   SELECT Cards.name, Cards.description, Cards.idCreator, Cards.minia_path, Cards.poster_path, Cards.rarity
   FROM Cards JOIN Circulation ON Cards.id = Circulation.cardId
   WHERE '$idUser' = Circulation.ownerId 
-  AND Circulation.inMarket = 0;
+  AND Circulation.inMarket = 0
+  ORDER BY Cards.rarity DESC, Cards.name;
   "));
 }
 
