@@ -365,6 +365,21 @@ function cardInfo($idCard){
   "))[0];
 }
 
+function changeCardOwner($circuId, $newOwner) {
+  $sql = "UPDATE Circulation SET ownerId='$newOwner' WHERE id='$circuId'";
+  return SQLUpdate($sql);
+}
+
+function notInmarketAnymore($circuId) {
+  $sql = "UPDATE Circulation SET inMarket=0 WHERE id='$circuId'";
+  return SQLUpdate($sql);
+}
+
+function getCardsOfType($idCard, $idUser) {
+  $sql = "SELECT id FROM Circulation WHERE ownerId='$idUser' AND cardId='$idCard'";
+  return parcoursRs(SQLSelect($sql));
+}
+
 /* ----------- ! OPENING ! ----------- */
 function getRandomCard($rarity="any") {
   if ($rarity == "any") {
@@ -379,10 +394,6 @@ function addCardToUser($idUser, $idCard) {
   $sql = "INSERT INTO Circulation (ownerId, cardId, inMarket) VALUES ('$idUser','$idCard',0)";
   return SQLInsert($sql);
 }
-
-/* ----------- ! MARKETPLACE ! ----------- */
-
-
 
 /* ----------- ! QUESTIONS ! ----------- */
 // Liste les questions
@@ -425,5 +436,35 @@ function getInfoQuestion($idQuestion) {
 }
 
 
+/* ----------- ! MARKETPLACE ! ----------- */
+function listerToutesLesOffresSaufUser($idUser)  // liste les offres qui ne sont pas faites par l'utilisateur en question
+{
+  $sql = "SELECT M.id AS id ,
+                 M.isTrade AS trade,
+                 M.soldCardId AS circuId,
+                 M.cost AS cost,
+                 M.tradedcardId AS tradedId,
+                 C.cardId AS cardId
+          FROM MarketOffers AS M 
+          JOIN Circulation AS C
+            ON M.soldCardId = C.id
+          WHERE C.ownerId != '$idUser'";
+  return parcoursRs(SQLSelect($sql));
+}
+
+function getOwnerFromOffer($idOffer) {
+  $sql = "SELECT C.ownerId FROM Circulation AS C JOIN MarketOffers AS M ON C.id = M.soldCardId WHERE M.id='$idOffer'";
+  return SQLGetChamp($sql);
+}
+
+function getInfoOffer($idOffer) {
+  $sql = "SELECT * FROM MarketOffers WHERE id='$idOffer'";
+  return parcoursRs(SQLSelect($sql))[0];
+}
+
+function removeOffer($idOffer) {
+  $sql = "DELETE FROM MarketOffers WHERE id='$idOffer'";
+  return SQLDelete($sql);
+}
 
 ?>

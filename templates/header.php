@@ -42,6 +42,7 @@ echo "<div id=\"navbar_buttons\">";
 		echo "<a class=\"more_coins_btn\" href=\"index.php?view=questions\">+</a>\n";
 		echo "<a class=\"crimson_button\" href=\"index.php?view=shop\">Achat Boosters</a>\n";
 		echo "<a class=\"crimson_button\" href=\"index.php?view=podium\">Classement</a>\n";
+		echo "<a class=\"crimson_button\" href=\"index.php?view=market\">Echange / Vente</a>\n";
 		echo "<a class=\"crimson_button\" href=\"index.php?view=cardInventory\">Inventaire</a>\n";
 	}
 	if (valider("connected", "SESSION") && (valider("permissions", "SESSION") >= 1)) {

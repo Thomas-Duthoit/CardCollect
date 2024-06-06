@@ -116,4 +116,22 @@ function mkPublication($id, $minia, $poster, $name, $description, $creator){
     echo "</div>";
 }
 
+function mkOffer($o) {
+    $c = cardInfo($o["cardId"]);
+    //tprint($c);
+
+    echo "<a href=\"controleur.php?action=useOffer&offerId=". $o["id"] ."\" class=\"offer\">";
+    echo "<div class=\"r" . $c["rarity"]+1 . "\">";
+    
+    echo "\"" . $c["name"] . "\"";
+    if ($o["trade"]) {
+        echo " échangée contre \"" . cardInfo($o["tradedId"])["name"] ."\"";
+    } else {
+        echo " vendue pour " . $o["cost"] . " coins";
+    }
+
+    echo "</div>";
+    echo "</a>";
+}
+
 ?>

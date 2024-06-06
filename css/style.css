@@ -701,3 +701,51 @@ source: http://blog.bruyere-freelance.fr/styliser-checkbox-css-proprement/
 
 
 
+
+/*    MARCHE    */
+#market_top {
+    margin: 20px;
+    width: calc(100vw - 40px);
+    position: relative;
+    color: var(--dark);
+}
+
+#market_top h2 {
+    position: absolute;
+    left: 0;
+}
+
+#market_top a {
+    position: absolute;
+    right: 0;
+}
+
+#market_bottom {
+    position: fixed;
+    bottom: 80px;
+    padding: 5px;
+    padding-left: 15px;
+    background-color: var(--lgray);
+    border-radius: 0 15px 15px 0;
+    box-shadow: 5px 5px 5px 5px var(--card-shadow);
+    border: 1px solid var(--black);
+    border-left: none;
+}
+
+#market_bottom * {
+    display: inline-block;
+}
+
+.offer {
+    color: white;
+    text-decoration: none;
+
+    text-align: center;
+    font-size: xx-large;
+}
+
+.offer div {
+    margin: 20px 100px;
+    padding: 25px;
+    border-radius: 30px;
+}

@@ -485,6 +485,41 @@ session_start();
 				$qs = "?view=questions";
 				$redirect = TRUE;
 			break;
+			case 'useOffer':
+				tprint($_GET);
+				if (valider("connected", "SESSION"))
+				if ($idUser = valider("idUser", "SESSION"))
+				if ($idOffer = valider("offerId", "GET")) {
+					$seller = getOwnerFromOffer($idOffer);
+					if ($idUser != $seller) {
+						$o = getInfoOffer($idOffer);
+						if ($o["isTrade"]) {
+							$cardsOfType = getCardsOfType($o["tradedCardId"], $idUser);
+							if (count($cardsOfType)>0) {
+								$cardTraded = $cardsOfType[0]["id"];
+								echo $cardTraded;
+								changeCardOwner($o["soldCardId"], $idUser);
+								notInmarketAnymore($o["soldCardId"]);
+								changeCardOwner($cardTraded, $seller);
+								removeOffer($idOffer);
+								$redirect = TRUE;
+								$qs = "?view=cardInventory";
+							} else {
+								$redirect = TRUE;
+								$qs = "?view=market";
+							}
+						} else {
+							changeCardOwner($o["soldCardId"], $idUser);
+							notInmarketAnymore($o["soldcardId"]);
+							addCoinsToUser($seller, $o["cost"]);
+							addCoinsToUser($idUser, -$o["cost"]);
+							removeOffer($idOffer);
+							$redirect = TRUE;
+							$qs = "?view=cardInventory";
+						}
+					}
+				}
+			break;
 		}
 
 	}
