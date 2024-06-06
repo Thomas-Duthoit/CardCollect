@@ -517,4 +517,8 @@ function getUserOffers($idUser) {
           WHERE C.ownerId = '$idUser'";
   return parcoursRs(SQLSelect($sql));
 }
+
+function getCardCircu($circuId) {
+  return SQLGetChamp("SELECT cardId FROM Circulation WHERE id='$circuId'");
+}
 ?>

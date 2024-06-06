@@ -23,7 +23,17 @@ $idUser = valider("idUser", "SESSION");
 <?php
 
 $offers = getUserOffers($idUser);
+//tprint($offers);
 foreach($offers as $o) {
-	
+	$c = cardInfo(getCardCircu($o["circuId"]));
+	mkCard($c["rarity"], $c["minia_path"], $c["name"]);
+	if ($o["trade"]) {
+		echo " echangée contre ";
+		$c2 = cardInfo($o["tradedId"]);
+		mkCard($c2["rarity"], $c2["minia_path"], $c2["name"]);
+	} else {
+		echo "vendue pour " . $o["cost"] . " coins";
+	}
+	echo "<hr />";
 }
 ?>
