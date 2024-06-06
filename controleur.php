@@ -498,8 +498,8 @@ session_start();
 							if (count($cardsOfType)>0) {
 								$cardTraded = $cardsOfType[0]["id"];
 								echo $cardTraded;
-								changeCardOwner($o["soldCardId"], $idUser);
 								notInmarketAnymore($o["soldCardId"]);
+								changeCardOwner($o["soldCardId"], $idUser);
 								changeCardOwner($cardTraded, $seller);
 								removeOffer($idOffer);
 								$redirect = TRUE;
@@ -509,8 +509,9 @@ session_start();
 								$qs = "?view=market";
 							}
 						} else {
+							echo $o["soldcardId"];
+							notInmarketAnymore($o["soldCardId"]);
 							changeCardOwner($o["soldCardId"], $idUser);
-							notInmarketAnymore($o["soldcardId"]);
 							addCoinsToUser($seller, $o["cost"]);
 							addCoinsToUser($idUser, -$o["cost"]);
 							removeOffer($idOffer);
@@ -519,6 +520,29 @@ session_start();
 						}
 					}
 				}
+			break;
+			case 'Publier Vente':
+				//tprint($_GET);
+				$redirect = TRUE;
+				$qs = "?view=createoffer";
+				if (valider("connected", "SESSION"))
+				if ($idUser = valider("idUser", "SESSION"))
+				if ($toSell = valider("cardToSell", "GET"))
+				if ($cost = valider("cost", "GET")) {
+					//echo "<br / > userId: ". $idUser;
+					//echo "<br / > own: ". $own;
+					$own = getCircuOwner($toSell);
+					if ($own == $idUser) {
+						$redirect = TRUE;
+						$qs = "?view=myoffers";
+						//echo "ok";
+						createSell($toSell, $cost);
+						setInMarket($toSell);
+					}
+				}
+			break;
+			case 'Publier Echange':
+				die("ok echange");
 			break;
 		}
 

@@ -273,6 +273,20 @@ function cardInventory($idUser){
   "));
 }
 
+function cardsToSell($idUser){
+  return parcoursRs(SQLSelect("
+  SELECT Cards.name, Circulation.id, Cards.description, Cards.idCreator, Cards.minia_path, Cards.poster_path, Cards.rarity+1 as rarity
+  FROM Cards JOIN Circulation ON Cards.id = Circulation.cardId
+  WHERE '$idUser' = Circulation.ownerId 
+  AND Circulation.inMarket = 0
+  ORDER BY Cards.rarity DESC, Cards.name;
+  "));
+}
+
+function getCircuOwner($circuId) {
+  return SQLGetChamp("SELECT ownerId FROM Circulation WHERE id='$circuId'");
+}
+
 // Liste les boosters dans l'inventaire d'un utilisateur
 function boosterInventory($idUser) {
   $sql = "SELECT I.id as invId,  B.name, B.nbCommon + B.nbUncommon + B.nbEpic + B.nbLegendary + B.nbRandom as nbCarte
@@ -331,6 +345,13 @@ function listerCards(){
 return parcoursRs(SQLSelect($sql));
 }
 
+function listerCardsmarket(){
+  $sql = "
+  SELECT id, name, description, idCreator, minia_path, poster_path, rarity+1 as rarity
+  FROM Cards";
+return parcoursRs(SQLSelect($sql));
+}
+
 // Supprime une carte de la BDD
 function supprimerCard($idCard){
   return SQLDelete("
@@ -367,11 +388,6 @@ function cardInfo($idCard){
 
 function changeCardOwner($circuId, $newOwner) {
   $sql = "UPDATE Circulation SET ownerId='$newOwner' WHERE id='$circuId'";
-  return SQLUpdate($sql);
-}
-
-function notInmarketAnymore($circuId) {
-  $sql = "UPDATE Circulation SET inMarket=0 WHERE id='$circuId'";
   return SQLUpdate($sql);
 }
 
@@ -467,4 +483,19 @@ function removeOffer($idOffer) {
   return SQLDelete($sql);
 }
 
+
+function createSell($circuId, $cost) {
+  $sql = "INSERT INTO MarketOffers (isTrade, soldCardId, cost) VALUES (0, '$circuId', '$cost')";
+  return SQLInsert($sql);
+}
+
+function setInMarket($circuId) {
+  $sql = "UPDATE Circulation SET inMarket=1 WHERE id='$circuId'";
+  return SQLUpdate($sql);
+}
+
+function notInmarketAnymore($circuId) {
+  $sql = "UPDATE Circulation SET inMarket=0 WHERE id='$circuId'";
+  return SQLUpdate($sql);
+}
 ?>

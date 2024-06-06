@@ -749,3 +749,28 @@ source: http://blog.bruyere-freelance.fr/styliser-checkbox-css-proprement/
     padding: 25px;
     border-radius: 30px;
 }
+
+.create_top {
+    width: 100vw;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.create_left {
+    padding: 30px;
+    width: calc(50vw - 60px);
+    position: absolute;
+    left: 0;
+    border-right: 3px solid var(--dark);
+}
+
+.create_right {
+    padding: 30px;
+    width: calc(50vw - 60px);
+    position: absolute;
+    right: 0;
+}
+
+.create_left h2, .create_right h2 {
+    text-align: center;
+}

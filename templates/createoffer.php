@@ -11,6 +11,46 @@ if (!valider("connected", "SESSION")) {
 	die("");
 }
 
-echo "coucou";
+
+$idUser = valider("idUser", "SESSION");
+
+?>
+
+<div id="market_top">
+    <h2>
+        Création d'une offre :
+    </h2>
+</div>
+<div style="height:100px"></div>
+
+<?php
+
+$cardsToSell = cardsToSell($idUser);
+//tprint($cardsToSell);
+
+
+mkForm("controleur.php");
+	echo "<div class=\"create_top\">";
+	echo "Selectionnez la carte que vous proposez  ";
+	mkSelect("cardToSell", $cardsToSell, "id", "name", "", "rarity");
+	echo "</div>";
+	echo "<div class=\"create_left\">";
+	echo "<h2>Si c'est une vente</h2>";
+	echo "<p>Sélectionner le prix de vente</p>";
+	mkInput("number", "cost", "");
+	echo "<br />";
+	mkInput("submit", "action", "Publier Vente");
+	echo "</div>";
+	echo "<div class=\"create_right\">";
+	echo "<h2>Si c'est un échange</h2>";
+	echo "<p>Sélectionner la carte voulue</p>";
+	mkSelect("tradedCardId", listerCardsMarket(), "id", "name", "", "rarity");
+	echo "<br />";
+	mkInput("submit", "action", "Publier Echange");
+	echo "</div>";
+
+
+endForm();
+
 
 ?>
