@@ -33,7 +33,8 @@ foreach($offers as $o) {
 		mkCard($c2["rarity"], $c2["minia_path"], $c2["name"]);
 	} else {
 		echo "vendue pour " . $o["cost"] . " coins";
-	}
+	} 
+	echo "<a class=\"crimson_button\" href=\"controleur.php?action=deleteOffer&offerId=" . $o["id"] . "\">Supprimer l'offre</a>\n";
 	echo "<hr />";
 }
 ?>

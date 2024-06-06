@@ -561,6 +561,21 @@ session_start();
 					}
 				}
 			break;
+			case 'deleteOffer':
+				if (valider("connected", "SESSION"))
+				if ($idUser = valider("idUser", "SESSION"))
+				if ($idOffer = valider("offerId", "GET")) {
+					$seller = getOwnerFromOffer($idOffer);
+					if ($idUser == $seller) {
+						$o = getInfoOffer($idOffer);
+						notInmarketAnymore($o["soldCardId"]);
+						removeOffer($idOffer);
+
+						$redirect = TRUE;
+						$qs = "?view=myoffers";
+					}
+				}
+			break;
 		}
 
 	}
