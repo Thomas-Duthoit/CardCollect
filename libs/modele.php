@@ -489,6 +489,11 @@ function createSell($circuId, $cost) {
   return SQLInsert($sql);
 }
 
+function createTrade($circuId, $tradedFor) {
+  $sql = "INSERT INTO MarketOffers (isTrade, soldCardId, tradedCardId) VALUES (1, '$circuId', '$tradedFor')";
+  return SQLInsert($sql);
+}
+
 function setInMarket($circuId) {
   $sql = "UPDATE Circulation SET inMarket=1 WHERE id='$circuId'";
   return SQLUpdate($sql);
@@ -497,5 +502,19 @@ function setInMarket($circuId) {
 function notInmarketAnymore($circuId) {
   $sql = "UPDATE Circulation SET inMarket=0 WHERE id='$circuId'";
   return SQLUpdate($sql);
+}
+
+function getUserOffers($idUser) {
+  $sql = "SELECT M.id AS id ,
+                 M.isTrade AS trade,
+                 M.soldCardId AS circuId,
+                 M.cost AS cost,
+                 M.tradedcardId AS tradedId,
+                 C.cardId AS cardId
+          FROM MarketOffers AS M 
+          JOIN Circulation AS C
+            ON M.soldCardId = C.id
+          WHERE C.ownerId = '$idUser'";
+  return parcoursRs(SQLSelect($sql));
 }
 ?>

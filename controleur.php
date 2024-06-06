@@ -542,7 +542,24 @@ session_start();
 				}
 			break;
 			case 'Publier Echange':
-				die("ok echange");
+				$redirect = TRUE;
+				$qs = "?view=createoffer";
+				//tprint($_GET);
+				if (valider("connected", "SESSION"))
+				if ($idUser = valider("idUser", "SESSION"))
+				if ($toSell = valider("cardToSell", "GET"))
+				if ($tradedId = valider("tradedCardId", "GET")) {
+					//echo "<br / > userId: ". $idUser;
+					//echo "<br / > own: ". $own;
+					$own = getCircuOwner($toSell);
+					if ($own == $idUser) {
+						$redirect = TRUE;
+						$qs = "?view=myoffers";
+						//echo "ok";
+						createTrade($toSell, $tradedId);
+						setInMarket($toSell);
+					}
+				}
 			break;
 		}
 

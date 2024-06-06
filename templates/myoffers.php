@@ -10,8 +10,20 @@ if (!valider("connected", "SESSION")) {
 	rediriger("index.php?view=accueil&");
 	die("");
 }
+$idUser = valider("idUser", "SESSION");
+?>
 
+<div id="market_top">
+    <h2>
+        Mes offres :
+    </h2>
+</div>
+<div style="height:100px"></div>
 
-echo "TODO";
+<?php
 
+$offers = getUserOffers($idUser);
+foreach($offers as $o) {
+	
+}
 ?>
